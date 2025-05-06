@@ -22,6 +22,8 @@ To use this project effectively or apply these concepts, you first need to insta
 
 Once installed and activated, Gemini is ready to help!
 
+[Back to Top](#flutter_code_with_gemini)
+
 ## Rules
 
 You can guide Gemini's behavior by providing persistent instructions or "rules" that it will consider for every request you make. This helps ensure consistency and adherence to your project's specific standards or your personal preferences.
@@ -41,3 +43,5 @@ Here's how to add custom rules (steps shown for VS Code, may vary slightly in ot
 After adding rules in the Rules settings, Gemini Code Assist considers the rule for every prompt or request you make.
 
 To remove the rule, delete the content from the Rules text field.
+
+[Back to Top](#flutter_code_with_gemini)
