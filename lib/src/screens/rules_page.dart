@@ -87,8 +87,7 @@ class RulesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'App & README Rules',
-          style:
-              TextStyle(color: Colors.black), // AppBar title to black
+          style: TextStyle(color: Colors.black), // AppBar title to black
         ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
@@ -103,10 +102,7 @@ class RulesPage extends StatelessWidget {
                 ?.copyWith(color: Colors.black), // Section title to black
           ),
           const SizedBox(height: 16.0),
-          _buildRuleExpansionTile(
-            context,
-            '1. Project Setup & Structure',
-            '''
+          _buildRuleExpansionTile(context, '1. Project Setup & Structure', '''
               1.  **Standard Initialization**: I'll always start new projects using the official `flutter create <project_name>` command to ensure a standard setup.
               2.  **Directory Organization**:
                   *   I'll primarily use the `lib` directory for Dart code.
@@ -119,11 +115,10 @@ class RulesPage extends StatelessWidget {
                   *   Class names, enums, and typedefs will be in `UpperCamelCase`.
                   *   Variables, methods, and parameters will be in `lowerCamelCase`.
                   *   Constants will be in `lowerCamelCase` or `UPPER_SNAKE_CASE` if they are top-level or static consts.
+              4.  **Debug Banner**:
+                  *   The debug banner (`debugShowCheckedModeBanner`) will typically be set to `false` in the `MaterialApp` widget for a cleaner appearance during development and for production builds.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '2. Coding Standards & Style',
-            '''
+          _buildRuleExpansionTile(context, '2. Coding Standards & Style', '''
               1.  **Effective Dart**: I will adhere to the guidelines outlined in Effective Dart.
               2.  **Linting**: I'll use `flutter analyze` and strive to eliminate all warnings and errors. I'll assume a standard set of linting rules (e.g., from the `lints` or `flutter_lints` package).
               3.  **Formatting**: All Dart code will be formatted using `dart format` to ensure consistent styling.
@@ -134,10 +129,7 @@ class RulesPage extends StatelessWidget {
                   *   Functions and classes will be kept concise and focused on a single responsibility.
               5.  **Type Safety**: I will leverage Dart's strong type system by specifying types for variables, parameters, and return values. I'll use `dynamic` sparingly and only when necessary.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '3. Widget Design & Composition',
-            '''
+          _buildRuleExpansionTile(context, '3. Widget Design & Composition', '''
               1.  **Modularity**: I'll break down complex UIs into smaller, reusable widgets. Each widget will have a clear purpose.
               2.  **Stateless vs. Stateful**:
                   *   I'll prefer `StatelessWidget` whenever a widget doesn't need to manage internal, mutable state.
@@ -149,10 +141,26 @@ class RulesPage extends StatelessWidget {
               7.  **User Preferences & Accessibility Settings**: I will strive to build UIs that respect and adapt to user-defined preferences (e.g., theme choices, font sizes) and accessibility settings configured on their device (e.g., screen reader compatibility, larger text).
               8.  **Widget Sourcing & Preferences**: Preference will be given to Flutter's built-in widgets. In cases where I need widgets from `pub.dev`, the frequency of updates and whether the package is well-maintained will be considered first. For charts, preference will be given to the nimble_charts package.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '4. State Management',
-            '''
+          _buildRuleExpansionTile(context, '4. Theming', '''
+              1.  **Centralized Theme**: Define app-wide themes (`ThemeData`) centrally in `MaterialApp`, including `ColorScheme` and `TextTheme`.
+              2.  **Contextual Access**: Always access theme properties via `Theme.of(context)` (e.g., `Theme.of(context).colorScheme.primary`) instead of hardcoding values.
+              3.  **Color Palette Strategy**:
+                  *   **Brand Alignment**: The color palette should align with the brand identity, using primary and secondary brand colors effectively.
+                  *   **Proactive Inquiry**: If a specific color palette or seed color is not provided by you, I will ask clarifying questions to help define it. This includes inquiring about primary/secondary brand colors, desired mood (e.g., vibrant, muted, professional), and any specific accessibility contrast requirements you might have.
+                  *   **ColorScheme Usage**: Utilize `ColorScheme.fromSeed` for generating harmonious light and dark color schemes from a single seed color. For more granular control, define `ColorScheme` properties explicitly.
+                  *   **Semantic Colors**: Consistently use semantic colors provided by `ColorScheme` (e.g., `primary`, `secondary`, `surface`, `background`, `error`, `onPrimary`, `onSecondary`, etc.) for UI elements and states.
+                  *   **Contrast & Harmony**: Employ color theory principles and tools (e.g., Adobe Color, Coolors) to ensure the palette is visually harmonious. Crucially, verify that color combinations provide sufficient contrast for readability and meet accessibility standards (e.g., WCAG AA or AAA levels).
+                  *   **Limited Palette**: Prefer a limited and well-defined color palette (e.g., 3-5 primary/accent colors plus neutrals) to maintain visual consistency and avoid overwhelming the user.
+              4.  **Dark Mode & Theme Selection**:
+                  *   Implement dark mode support by providing both `theme` (for light mode) and `darkTheme` in `MaterialApp`.
+                  *   The app should allow users to select their preferred theme mode (e.g., Light, Dark, or System default) through a clear user interface element (like a toggle in settings).
+                  *   The user's theme preference should be persisted across app sessions (e.g., using `shared_preferences`).
+                  *   Manage the active `ThemeMode` and theme switching logic through a dedicated service or state management solution (e.g., a `ThemeManager` class using `ChangeNotifier`).
+              5.  **Custom Extensions**: For app-specific styling that doesn't fit neatly into standard `ThemeData` properties (e.g., custom button styles, specific spacing values), use `ThemeExtension<T>` for better organization and type-safe access.
+              6.  **Consistency**: Apply all theming elements (colors, typography, component styles, spacing) consistently across the entire application to create a cohesive user experience.
+              7.  **Accessibility (Reiteration)**: Beyond color contrast, ensure that typography choices (font family, size, weight) are legible and that theme changes do not negatively impact other accessibility features.
+            '''),
+          _buildRuleExpansionTile(context, '5. State Management', '''
               1.  **Appropriate Solution**:
                   *   Before implementing state management, I will ask: "Is this a simple or complex app? Option 1: Simple, Option 2: Complex."
                   *   If you select **Option 1 (Simple)**: I will use `setState` for managing simple, local widget state.
@@ -162,9 +170,7 @@ class RulesPage extends StatelessWidget {
               4.  **Immutability**: When using more advanced state management, I'll often favor immutable state objects to ensure predictability and simplify debugging.
             '''),
           _buildRuleExpansionTile(
-            context,
-            '5. Asynchronous Operations & Error Handling',
-            '''
+              context, '6. Asynchronous Operations & Error Handling', '''
               1.  **`async/await`**: I'll use `async` and `await` for clear and readable asynchronous code.
               2.  **Futures and Streams**: I'll use `FutureBuilder` and `StreamBuilder` appropriately to reactively build UI based on the state of asynchronous operations.
               3.  **Loading States**: I'll ensure UIs provide feedback during asynchronous operations (e.g., loading indicators).
@@ -173,10 +179,7 @@ class RulesPage extends StatelessWidget {
                   *   I'll aim to display user-friendly error messages rather than crashing the app or showing raw error details.
                   *   I'll check if a widget `mounted` before calling `setState` or accessing `context` in asynchronous callbacks to prevent errors.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '6. Navigation',
-            '''
+          _buildRuleExpansionTile(context, '7. Navigation', '''
               1.  **Named Routes**: I'll prefer using named routes (`Navigator.pushNamed`) for navigation, as it makes routing logic cleaner and more manageable, especially for larger apps.
                   *   Example: `Navigator.pushNamed(context, '/profile');`
               2.  **Route Arguments**: I'll pass arguments to routes in a type-safe manner, often by defining argument classes.
@@ -184,19 +187,13 @@ class RulesPage extends StatelessWidget {
                   *   If **Option 1 (`go_router`)** is selected, I will use the `go_router` package. This is particularly recommended for applications with complex navigation requirements (e.g., deep linking, nested routing).
                   *   If **Option 2 (`Navigator.pushNamed`)** is selected, I will use named routes as described in point 1 ("Named Routes") above.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '7. Dependencies & Packages',
-            '''
+          _buildRuleExpansionTile(context, '8. Dependencies & Packages', '''
               1.  **Judicious Use**: I'll only add packages from `pub.dev` when they provide significant value and are well-maintained.
               2.  **Version Pinning**: I'll specify dependency versions in `pubspec.yaml` carefully, often using caret syntax (e.g., `^1.2.3`) to allow compatible updates while ensuring stability.
               3.  **Up-to-Date**: I'll try to use recent, stable versions of packages.
               4.  **Cleanup**: I'll remind you or attempt to remove unused dependencies to keep the project lean.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '8. Testing',
-            '''
+          _buildRuleExpansionTile(context, '9. Testing', '''
               1.  **Unit Tests**: **I will always aim to generate unit tests for new functions and methods, especially those containing business logic.**
                   *   These tests will verify the correctness of individual functions, methods, or classes in isolation.
                   *   I'll use the `test` package.
@@ -207,10 +204,7 @@ class RulesPage extends StatelessWidget {
               4.  **Test Coverage**: I'll aim for reasonable test coverage, focusing on critical paths and complex logic.
               5.  **Mocking**: I'll use mocking (e.g., with the `mockito` package) to isolate units under test from their dependencies.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '9. Performance',
-            '''
+          _buildRuleExpansionTile(context, '10. Performance', '''
               1.  **Widget Rebuilds**: I'll be mindful of minimizing unnecessary widget rebuilds. This includes:
                   *   Using `const` widgets wherever possible.
                   *   Breaking down large widgets.
@@ -221,45 +215,30 @@ class RulesPage extends StatelessWidget {
               5.  **Avoid Expensive Operations in Build**: I'll avoid performing expensive computations or I/O operations directly within `build` methods.
             '''),
           _buildRuleExpansionTile(
-            context,
-            '10. Code Documentation & Comments',
-            '''
+              context, '11. Code Documentation & Comments', '''
               1.  **Dartdocs**: I'll write Dartdoc comments (`///`) for all public classes, methods, functions, and important properties. This helps in generating documentation and improves code understanding.
               2.  **Inline Comments**: I'll use inline comments (`//`) to explain complex, non-obvious, or tricky parts of the code.
               3.  **Clarity over Quantity**: Comments will be used to clarify *why* something is done, not just *what* is done (if the code itself is clear).
               4.  **Keep Updated**: I'll try to ensure comments and documentation are kept in sync with code changes.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '11. Security Considerations',
-            '''
+          _buildRuleExpansionTile(context, '12. Security Considerations', '''
               1.  **Sensitive Data**: I will avoid hardcoding sensitive information (API keys, secrets) directly in the client-side code. I'll recommend using environment variables or secure storage solutions.
               2.  **Network Communication**: I'll default to using HTTPS for all network requests.
               3.  **Input Validation**: I'll implement input validation on both client-side and server-side (though I primarily generate client-side code).
               4.  **Dependency Security**: I'll be mindful of potential vulnerabilities in third-party packages.
               5.  **Local Storage**: When using local storage (e.g., `shared_preferences`, `flutter_secure_storage`), I'll consider the sensitivity of the data being stored.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '12. User Experience (UX) Focus',
-            '''
+          _buildRuleExpansionTile(context, '13. User Experience (UX) Focus', '''
               1.  **Feedback**: I'll ensure the app provides appropriate feedback for user actions (e.g., taps, loading states, success/error messages).
               2.  **Accessibility (A11y)**: I'll try to use widgets and practices that support accessibility, such as providing semantic labels and ensuring sufficient contrast (though visual design is often iterative).
               3.  **Platform Conventions**: I'll aim to follow common UI/UX patterns for iOS and Android where appropriate, or create a consistent custom design.
               4.  **Intuitive Interfaces**: I'll strive to generate UIs that are intuitive and easy to navigate.
             '''),
-          _buildRuleExpansionTile(
-            context,
-            '13. Version Control Practices',
-            '''
+          _buildRuleExpansionTile(context, '14. Version Control Practices', '''
               1.  **`.gitignore`**: I'll assume a standard Flutter `.gitignore` file is in use to exclude unnecessary files from version control.
               2.  **Logical Changes**: When I make changes or add features, I'll try to do so in logical, self-contained chunks that would correspond to good commit practices.
             '''),
-          
-          _buildRuleExpansionTile(
-            context,
-            '14. Continuous Improvement',
-            '''
+          _buildRuleExpansionTile(context, '15. Continuous Improvement', '''
               1.  **Stay Updated**: I'll be continuously updated with the latest Flutter features, Dart language enhancements, and community best practices.
               2.  **Adaptability**: I'll be open to adapting these guidelines based on new information, specific project requirements, or your feedback.
             '''),

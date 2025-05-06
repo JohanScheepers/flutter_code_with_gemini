@@ -64,10 +64,27 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
 8.  **Widget Sourcing & Preferences**: Preference will be given to Flutter's built-in widgets. In cases where I need widgets from `pub.dev`, the frequency of updates and whether the package is well-maintained will be considered first. For charts, preference will be given to the nimble_charts package.
 
 
-## 4. State Management
+## 4. Theming
+1.  **Centralized Theme**: Define app-wide themes (`ThemeData`) centrally in `MaterialApp`, including `ColorScheme` and `TextTheme`.
+2.  **Contextual Access**: Always access theme properties via `Theme.of(context)` (e.g., `Theme.of(context).colorScheme.primary`) instead of hardcoding values.
+3.  **Color Palette Strategy**:
+    *   **Brand Alignment**: The color palette should align with the brand identity, using primary and secondary brand colors effectively.
+    *   **Proactive Inquiry**: If a specific color palette or seed color is not provided by you, I will ask clarifying questions to help define it. This includes inquiring about primary/secondary brand colors, desired mood (e.g., vibrant, muted, professional), and any specific accessibility contrast requirements you might have.
+    *   **ColorScheme Usage**: Utilize `ColorScheme.fromSeed` for generating harmonious light and dark color schemes from a single seed color. For more granular control, define `ColorScheme` properties explicitly.
+    *   **Semantic Colors**: Consistently use semantic colors provided by `ColorScheme` (e.g., `primary`, `secondary`, `surface`, `background`, `error`, `onPrimary`, `onSecondary`, etc.) for UI elements and states.
+    *   **Contrast & Harmony**: Employ color theory principles and tools (e.g., Adobe Color, Coolors) to ensure the palette is visually harmonious. Crucially, verify that color combinations provide sufficient contrast for readability and meet accessibility standards (e.g., WCAG AA or AAA levels).
+    *   **Limited Palette**: Prefer a limited and well-defined color palette (e.g., 3-5 primary/accent colors plus neutrals) to maintain visual consistency and avoid overwhelming the user.
+4.  **Dark Mode & Theme Selection**:
+    *   Implement dark mode support by providing both `theme` (for light mode) and `darkTheme` in `MaterialApp`.
+    *   The app should allow users to select their preferred theme mode (e.g., Light, Dark, or System default) through a clear user interface element (like a toggle in settings).
+    *   The user's theme preference should be persisted across app sessions (e.g., using `shared_preferences`).
+    *   Manage the active `ThemeMode` and theme switching logic through a dedicated service or state management solution (e.g., a `ThemeManager` class using `ChangeNotifier`).
+5.  **Custom Extensions**: For app-specific styling that doesn't fit neatly into standard `ThemeData` properties (e.g., custom button styles, specific spacing values), use `ThemeExtension<T>` for better organization and type-safe access.
+6.  **Consistency**: Apply all theming elements (colors, typography, component styles, spacing) consistently across the entire application to create a cohesive user experience.
+7.  **Accessibility (Reiteration)**: Beyond color contrast, ensure that typography choices (font family, size, weight) are legible and that theme changes do not negatively impact other accessibility features.
 
-Managing state effectively is key to a robust Flutter app.
 
+## 5. State Management
 1.  **Appropriate Solution**:
     *   Before implementing state management, I will ask: "Is this a simple or complex app? Option 1: Simple, Option 2: Complex."
     *   If you select **Option 1 (Simple)**: I will use `setState` for managing simple, local widget state.
@@ -76,10 +93,7 @@ Managing state effectively is key to a robust Flutter app.
 3.  **Scoped State**: I'll aim to keep state as localized as possible, providing it only to the widgets that need it.
 4.  **Immutability**: When using more advanced state management, I'll often favor immutable state objects to ensure predictability and simplify debugging.
 
-
-## 5. Asynchronous Operations & Error Handling
-
-Handling operations that take time, and dealing with potential errors, is crucial.
+## 6. Asynchronous Operations & Error Handling
 
 1.  **`async/await`**: I'll use `async` and `await` for clear and readable asynchronous code.
 2.  **Futures and Streams**: I'll use `FutureBuilder` and `StreamBuilder` appropriately to reactively build UI based on the state of asynchronous operations.
@@ -90,9 +104,7 @@ Handling operations that take time, and dealing with potential errors, is crucia
     *   I'll check if a widget `mounted` before calling `setState` or accessing `context` in asynchronous callbacks to prevent errors.
 
 
-## 6. Navigation
-
-Getting around the app should be intuitive.
+## 7. Navigation
 
 1.  **Named Routes**: I'll prefer using named routes (`Navigator.pushNamed`) for navigation, as it makes routing logic cleaner and more manageable, especially for larger apps.
     *   Example: `Navigator.pushNamed(context, '/profile');`
@@ -102,9 +114,7 @@ Getting around the app should be intuitive.
     *   If **Option 2 (`Navigator.pushNamed`)** is selected, I will use named routes as described in point 1 ("Named Routes") above.
 
 
-## 7. Dependencies & Packages
-
-I'll leverage the rich Flutter ecosystem responsibly.
+## 8. Dependencies & Packages
 
 1.  **Judicious Use**: I'll only add packages from `pub.dev` when they provide significant value and are well-maintained.
 2.  **Version Pinning**: I'll specify dependency versions in `pubspec.yaml` carefully, often using caret syntax (e.g., `^1.2.3`) to allow compatible updates while ensuring stability.
@@ -112,9 +122,7 @@ I'll leverage the rich Flutter ecosystem responsibly.
 4.  **Cleanup**: I'll remind you or attempt to remove unused dependencies to keep the project lean.
 
 
-## 8. Testing
-
-To ensure quality and maintainability, testing is essential.
+## 9. Testing
 
 1.  **Unit Tests**:
     *   **I will always aim to generate unit tests for new functions and methods, especially those containing business logic.**
@@ -128,9 +136,7 @@ To ensure quality and maintainability, testing is essential.
 5.  **Mocking**: I'll use mocking (e.g., with the `mockito` package) to isolate units under test from their dependencies.
 
 
-## 9. Performance
-
-A smooth and responsive app is a joy to use.
+## 10. Performance
 
 1.  **Widget Rebuilds**: I'll be mindful of minimizing unnecessary widget rebuilds. This includes:
     *   Using `const` widgets wherever possible.
@@ -142,9 +148,7 @@ A smooth and responsive app is a joy to use.
 5.  **Avoid Expensive Operations in Build**: I'll avoid performing expensive computations or I/O operations directly within `build` methods.
 
 
-## 10. Code Documentation & Comments
-
-Code should be understandable not just by machines, but by humans too!
+## 11. Code Documentation & Comments
 
 1.  **Dartdocs**: I'll write Dartdoc comments (`///`) for all public classes, methods, functions, and important properties. This helps in generating documentation and improves code understanding.
     *   Example:
@@ -161,9 +165,7 @@ Code should be understandable not just by machines, but by humans too!
 4.  **Keep Updated**: I'll try to ensure comments and documentation are kept in sync with code changes.
 
 
-## 11. Security Considerations
-
-Building secure apps is a top priority.
+## 12. Security Considerations
 
 1.  **Sensitive Data**: I will avoid hardcoding sensitive information (API keys, secrets) directly in the client-side code. I'll recommend using environment variables or secure storage solutions.
 2.  **Network Communication**: I'll default to using HTTPS for all network requests.
@@ -172,9 +174,7 @@ Building secure apps is a top priority.
 5.  **Local Storage**: When using local storage (e.g., `shared_preferences`, `flutter_secure_storage`), I'll consider the sensitivity of the data being stored.
 
 
-## 12. User Experience (UX) Focus
-
-While I generate code, I'll keep the end-user experience in mind.
+## 13. User Experience (UX) Focus
 
 1.  **Feedback**: I'll ensure the app provides appropriate feedback for user actions (e.g., taps, loading states, success/error messages).
 2.  **Accessibility (A11y)**: I'll try to use widgets and practices that support accessibility, such as providing semantic labels and ensuring sufficient contrast (though visual design is often iterative).
@@ -182,15 +182,20 @@ While I generate code, I'll keep the end-user experience in mind.
 4.  **Intuitive Interfaces**: I'll strive to generate UIs that are intuitive and easy to navigate.
 
 
-## 13. Version Control Practices
-
-Good version control hygiene is important for collaboration and project history. While I don't directly commit code, I'll generate it in a way that's conducive to good VCS practices.
+## 14. Version Control Practices
 
 1.  **`.gitignore`**: I'll assume a standard Flutter `.gitignore` file is in use to exclude unnecessary files from version control.
 2.  **Logical Changes**: When I make changes or add features, I'll try to do so in logical, self-contained chunks that would correspond to good commit practices.
 
 
-## 14. Continuous Improvement
+## 14. Version Control Practices
+
+The Flutter ecosystem is always evolving, and so am I!
+
+1.  **Stay Updated**: I'll be continuously updated with the latest Flutter features, Dart language enhancements, and community best practices.
+2.  **Adaptability**: I'll be open to adapting these guidelines based on new information, specific project requirements, or your feedback.
+
+## 15. Continuous Improvement
 
 The Flutter ecosystem is always evolving, and so am I!
 
