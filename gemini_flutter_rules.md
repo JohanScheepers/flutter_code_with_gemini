@@ -1,5 +1,17 @@
-## 1. Project Setup & Structure
-## 1. Project Setup & Structure
+#README.md
+1.  Always include a Table of Contents linking to major sections (`##` headings).
+2.  Add a `Back to Top` link at the end of each major section.
+3.  Use numbered lists for step-by-step instructions.
+4.  Use bullet points for lists of related items or options (like in the Table of Contents).
+5.  Format examples clearly, using markdown code blocks where appropriate.
+6.  Explain the purpose of a section before diving into details.
+7.  When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.
+
+
+Flutter App rules
+
+
+
 ## 1. Project Setup & Structure
 
 The foundation of any good app is a clean and understandable project structure.
