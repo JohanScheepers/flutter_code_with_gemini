@@ -31,8 +31,8 @@ You can guide Gemini's behavior by providing persistent instructions or "rules" 
 
 Here's how to add custom rules (steps shown for VS Code, may vary slightly in other IDEs):
 
-1.  **Open the Gemini Quick Pick:** While in a code file, press `Ctrl+I` (Windows/Linux) or `Cmd+I` (macOS).
-2.  **Access Settings:** In the menu that appears, search for and select `Preferences: Open Settings (UI)`.
+1.  **Open the Command Palette:** Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS).
+2.  **Access Settings:** In the Command Palette, type `Preferences: Open Settings (UI)` and select it from the list.
 3.  **Find the Rules Setting:** In the Settings UI search bar, enter `Gemini Code Assist: Rules` (or similar, depending on the exact extension naming).
 4.  **Add Your Rule(s):** In the text input field provided for the rules, enter your instructions. You can add multiple rules, often one per line.
 
@@ -49,7 +49,7 @@ To remove the rule, delete the content from the Rules text field.
 
 ## README Generation Rules
 
-This README file was generated and updated following these guidelines (which could also be used as Gemini rules):
+This README.md file was generated and updated following these guidelines (which could also be used as Gemini rules):
 
 1.  Always include a Table of Contents linking to major sections (`##` headings).
 2.  Add a `Back to Top` link at the end of each major section.
