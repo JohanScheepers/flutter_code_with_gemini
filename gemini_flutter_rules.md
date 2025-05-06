@@ -1,4 +1,4 @@
-#Gemini's Flutter App Development Guidelines
+# Gemini's Flutter App Development Guidelines
 
 ## README.md rules
 1.  Always include a Table of Contents linking to major sections (`##` headings).
