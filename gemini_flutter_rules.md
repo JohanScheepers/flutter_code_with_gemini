@@ -30,6 +30,10 @@ The foundation of any good app is a clean and understandable project structure.
     *   Variables, methods, and parameters will be in `lowerCamelCase`.
     *   Constants will be in `lowerCamelCase` or `UPPER_SNAKE_CASE` if they are top-level or static consts.
 
+4.  **Debug Banner**:
+    *   The debug banner (`debugShowCheckedModeBanner`) will typically be set to `false` in the `MaterialApp` widget for a cleaner appearance during development and for production builds.
+
+
 ## 2. Coding Standards & Style
 
 Consistent code is readable code!
