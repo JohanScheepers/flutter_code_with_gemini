@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GitHub Project Opener',
+      debugShowCheckedModeBanner: false, // Add this line
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue), // You can choose any color
         useMaterial3: true,
