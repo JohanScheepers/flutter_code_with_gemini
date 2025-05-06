@@ -6,6 +6,7 @@ A Flutter project demonstrating how to add custom context or rules to Google's G
 
 - [Getting Started](#getting-started)
 - [Rules](#rules)
+- [README Generation Rules](#readme-generation-rules)
 
 ## Getting Started
 
@@ -45,3 +46,17 @@ After adding rules in the Rules settings, Gemini Code Assist considers the rule 
 To remove the rule, delete the content from the Rules text field.
 
 [Back to Top](#flutter_code_with_gemini)
+
+## README Generation Rules
+
+This README file was generated and updated following these guidelines (which could also be used as Gemini rules):
+
+1.  Always include a Table of Contents linking to major sections (`##` headings).
+2.  Add a `Back to Top` link at the end of each major section.
+3.  Use numbered lists for step-by-step instructions.
+4.  Use bullet points for lists of related items or options (like in the Table of Contents).
+5.  Format examples clearly, using markdown code blocks where appropriate.
+6.  Explain the purpose of a section before diving into details.
+7.  When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.
+
+Back to Top
