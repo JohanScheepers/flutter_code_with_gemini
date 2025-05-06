@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_code_with_gemini/src/screens/rules_page.dart'; // For RulesPage navigation
+import 'package:go_router/go_router.dart'; // Import go_router
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -71,10 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 20), // Add some spacing
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RulesPage()),
-                );
+                context.push('/rules'); // Navigate using go_router
               },
               child: const Text('View App & README Rules'),
             ),
