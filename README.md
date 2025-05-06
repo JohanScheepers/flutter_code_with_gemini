@@ -104,7 +104,7 @@ The foundation of any good app is a clean and understandable project structure.
     *   Variables, methods, and parameters will be in `lowerCamelCase`.
     *   Constants will be in `lowerCamelCase` or `UPPER_SNAKE_CASE` if they are top-level or static consts.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 2. Coding Standards & Style
 
@@ -120,7 +120,7 @@ Consistent code is readable code!
     *   Functions and classes will be kept concise and focused on a single responsibility.
 5.  **Type Safety**: I will leverage Dart's strong type system by specifying types for variables, parameters, and return values. I'll use `dynamic` sparingly and only when necessary.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 3. Widget Design & Composition
 
@@ -135,7 +135,7 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
 5.  **Responsive Design**: I'll consider how UIs should adapt to different screen sizes and orientations, using techniques like `MediaQuery`, `LayoutBuilder`, `FittedBox`, or responsive layout widgets.
 6.  **Build Method Purity**: Widget `build` methods should be pure and free of side effects. They should describe the UI based on the current state and props.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 4. State Management
 
@@ -148,7 +148,7 @@ Managing state effectively is key to a robust Flutter app.
 3.  **Scoped State**: I'll aim to keep state as localized as possible, providing it only to the widgets that need it.
 4.  **Immutability**: When using more advanced state management, I'll often favor immutable state objects to ensure predictability and simplify debugging.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 5. Asynchronous Operations & Error Handling
 
@@ -162,7 +162,7 @@ Handling operations that take time, and dealing with potential errors, is crucia
     *   I'll aim to display user-friendly error messages rather than crashing the app or showing raw error details.
     *   I'll check if a widget `mounted` before calling `setState` or accessing `context` in asynchronous callbacks to prevent errors.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 6. Navigation
 
@@ -173,7 +173,7 @@ Getting around the app should be intuitive.
 2.  **Route Arguments**: I'll pass arguments to routes in a type-safe manner, often by defining argument classes.
 3.  **Routing Packages**: For applications with complex navigation requirements (deep linking, nested routing), I might suggest or use a dedicated routing package like `go_router`.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 7. Dependencies & Packages
 
@@ -184,7 +184,7 @@ I'll leverage the rich Flutter ecosystem responsibly.
 3.  **Up-to-Date**: I'll try to use recent, stable versions of packages.
 4.  **Cleanup**: I'll remind you or attempt to remove unused dependencies to keep the project lean.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 8. Testing
 
@@ -201,7 +201,7 @@ To ensure quality and maintainability, testing is essential.
 4.  **Test Coverage**: I'll aim for reasonable test coverage, focusing on critical paths and complex logic.
 5.  **Mocking**: I'll use mocking (e.g., with the `mockito` package) to isolate units under test from their dependencies.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 9. Performance
 
@@ -216,7 +216,7 @@ A smooth and responsive app is a joy to use.
 4.  **DevTools**: I'll encourage the use of Flutter DevTools for profiling and identifying performance bottlenecks.
 5.  **Avoid Expensive Operations in Build**: I'll avoid performing expensive computations or I/O operations directly within `build` methods.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 10. Code Documentation & Comments
 
@@ -236,7 +236,7 @@ Code should be understandable not just by machines, but by humans too!
 3.  **Clarity over Quantity**: Comments will be used to clarify *why* something is done, not just *what* is done (if the code itself is clear).
 4.  **Keep Updated**: I'll try to ensure comments and documentation are kept in sync with code changes.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 11. Security Considerations
 
@@ -248,7 +248,7 @@ Building secure apps is a top priority.
 4.  **Dependency Security**: I'll be mindful of potential vulnerabilities in third-party packages.
 5.  **Local Storage**: When using local storage (e.g., `shared_preferences`, `flutter_secure_storage`), I'll consider the sensitivity of the data being stored.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 12. User Experience (UX) Focus
 
@@ -259,7 +259,7 @@ While I generate code, I'll keep the end-user experience in mind.
 3.  **Platform Conventions**: I'll aim to follow common UI/UX patterns for iOS and Android where appropriate, or create a consistent custom design.
 4.  **Intuitive Interfaces**: I'll strive to generate UIs that are intuitive and easy to navigate.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 13. Version Control Practices
 
@@ -268,7 +268,7 @@ Good version control hygiene is important for collaboration and project history.
 1.  **`.gitignore`**: I'll assume a standard Flutter `.gitignore` file is in use to exclude unnecessary files from version control.
 2.  **Logical Changes**: When I make changes or add features, I'll try to do so in logical, self-contained chunks that would correspond to good commit practices.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ## 14. Continuous Improvement
 
@@ -277,7 +277,7 @@ The Flutter ecosystem is always evolving, and so am I!
 1.  **Stay Updated**: I'll be continuously updated with the latest Flutter features, Dart language enhancements, and community best practices.
 2.  **Adaptability**: I'll be open to adapting these guidelines based on new information, specific project requirements, or your feedback.
 
-[Back to Top](##table-of-contents)
+[Back to Top](#flutter_code_with_gemini)
 
 ---
 
