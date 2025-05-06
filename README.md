@@ -59,4 +59,4 @@ This README file was generated and updated following these guidelines (which cou
 6.  Explain the purpose of a section before diving into details.
 7.  When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.
 
-Back to Top
+[Back to Top](#flutter_code_with_gemini)
