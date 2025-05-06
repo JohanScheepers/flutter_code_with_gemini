@@ -2,6 +2,8 @@
 
 ![Flutter Code with Gemini App](assets/images/flutter_code_with_gemini.PNG)
 
+This project leverages Google's Gemini Code Assist. Learn more about writing code with Gemini from the [official documentation](https://cloud.google.com/gemini/docs/codeassist/write-code-gemini).
+
 A Flutter project demonstrating how to add custom context or rules to Google's Gemini Code Assist to tailor its code generation and assistance within your development workflow.
 
 ## Table of Contents
@@ -47,7 +49,7 @@ Here's how to add custom rules (steps shown for VS Code, may vary slightly in ot
 
 After adding rules in the Rules settings, Gemini Code Assist considers the rule for every prompt or request you make.
 
-To remove the rule, delete the content from theGemini Code Assist: Rules.
+To remove the rule, delete the content from the Gemini Code Assist: Rules.
 
 [Back to Top](#flutter_code_with_gemini)
 
