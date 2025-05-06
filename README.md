@@ -2,6 +2,11 @@
 
 A Flutter project demonstrating how to add custom context or rules to Google's Gemini Code Assist to tailor its code generation and assistance within your development workflow.
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Rules](#rules)
+
 ## Getting Started
 
 To use this project effectively or apply these concepts, you first need to install Gemini Code Assist in your IDE.
