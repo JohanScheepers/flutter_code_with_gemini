@@ -1,17 +1,5 @@
-
-
-
-#README.md
-1.  Always include a Table of Contents linking to major sections (`##` headings).
-2.  Add a `Back to Top` link at the end of each major section.
-3.  Use numbered lists for step-by-step instructions.
-4.  Use bullet points for lists of related items or options (like in the Table of Contents).
-5.  Format examples clearly, using markdown code blocks where appropriate.
-6.  Explain the purpose of a section before diving into details.
-7.  When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.
-
-
-Flutter App rules
+## 1. Project Setup & Structure
+## 1. Project Setup & Structure
 ## 1. Project Setup & Structure
 
 The foundation of any good app is a clean and understandable project structure.
@@ -20,8 +8,8 @@ The foundation of any good app is a clean and understandable project structure.
 
 2.  **Directory Organization**:
     *   I'll primarily use the `lib` directory for Dart code.
-    *   Within `lib`, I may organize files by feature (e.g., `lib/features/authentication/`) or by layer (e.g., `lib/src/widgets/`, `lib/src/models/`, `lib/src/services/`), depending on the project's complexity. I'll aim for clarity and consistency.
-    *   Assets (images, fonts, etc.) will be placed in a top-level `assets` directory and declared in `pubspec.yaml`.
+    *   Within `lib`, directory organization will be done by layers (e.g., `lib/src/widgets/`, `lib/src/models/`, `lib/src/services/`).
+    *   Assets will be placed in a top-level `assets` directory and declared in `pubspec.yaml`. Specific asset types will be organized into subdirectories: `assets/images/` for images, `assets/fonts/` for fonts, and other types in their respective named subdirectories (e.g., `assets/data/` for data files, `assets/rive/` for Rive animations).
     *   Tests will reside in the `test` directory.
 3.  **Naming Conventions**:
     *   File names will be in `snake_case.dart` (e.g., `user_profile_screen.dart`).
@@ -54,8 +42,10 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
     *   `StatefulWidget` will be used when a widget's appearance or behavior needs to change based on internal state or lifecycle events.
 3.  **`const` Constructors**: For widgets that can be constant, I will provide `const` constructors. This is crucial for performance optimizations.
 4.  **Separation of Concerns**: I'll strive to keep UI (widget) code separate from business logic.
-5.  **Responsive Design**: I'll consider how UIs should adapt to different screen sizes and orientations, using techniques like `MediaQuery`, `LayoutBuilder`, `FittedBox`, or responsive layout widgets.
+5.  **Responsive Design**: I'll consider how UIs should adapt to different screen sizes and orientations, using techniques like `MediaQuery`, `LayoutBuilder`, `FittedBox`, or responsive layout widgets. I will keep `MediaQuery` to the absolute minimum, and it will be kept as close to where it is needed in the widget tree.
 6.  **Build Method Purity**: Widget `build` methods should be pure and free of side effects. They should describe the UI based on the current state and props.
+7.  **User Preferences & Accessibility Settings**: I will strive to build UIs that respect and adapt to user-defined preferences (e.g., theme choices, font sizes) and accessibility settings configured on their device (e.g., screen reader compatibility, larger text).
+8.  **Widget Sourcing & Preferences**: Preference will be given to Flutter's built-in widgets. In cases where I need widgets from `pub.dev`, the frequency of updates and whether the package is well-maintained will be considered first. For charts, preference will be given to the nimble_charts package.
 
 
 ## 4. State Management
@@ -63,8 +53,9 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
 Managing state effectively is key to a robust Flutter app.
 
 1.  **Appropriate Solution**:
-    *   For very simple, local state, I might use `setState`.
-    *   For more complex scenarios, I'll choose a well-established state management solution (e.g., Provider, Riverpod, BLoC/Cubit, GetX). The choice will depend on the project's scale and requirements, or your preference if specified.
+    *   Before implementing state management, I will ask: "Is this a simple or complex app? Option 1: Simple, Option 2: Complex."
+    *   If you select **Option 1 (Simple)**: I will use `setState` for managing simple, local widget state.
+    *   If you select **Option 2 (Complex)**: I will use Riverpod for more comprehensive state management needs.
 2.  **Clear State Flow**: The flow of data and state changes will be designed to be predictable and easy to trace.
 3.  **Scoped State**: I'll aim to keep state as localized as possible, providing it only to the widgets that need it.
 4.  **Immutability**: When using more advanced state management, I'll often favor immutable state objects to ensure predictability and simplify debugging.
@@ -90,7 +81,9 @@ Getting around the app should be intuitive.
 1.  **Named Routes**: I'll prefer using named routes (`Navigator.pushNamed`) for navigation, as it makes routing logic cleaner and more manageable, especially for larger apps.
     *   Example: `Navigator.pushNamed(context, '/profile');`
 2.  **Route Arguments**: I'll pass arguments to routes in a type-safe manner, often by defining argument classes.
-3.  **Routing Packages**: For applications with complex navigation requirements (deep linking, nested routing), I might suggest or use a dedicated routing package like `go_router`.
+3.  **Routing Strategy & Packages**: Before implementing routing, I will prompt: "What routing to use? Option 1: `go_router`, Option 2: `Navigator.pushNamed`."
+    *   If **Option 1 (`go_router`)** is selected, I will use the `go_router` package. This is particularly recommended for applications with complex navigation requirements (e.g., deep linking, nested routing).
+    *   If **Option 2 (`Navigator.pushNamed`)** is selected, I will use named routes as described in point 1 ("Named Routes") above.
 
 
 ## 7. Dependencies & Packages
