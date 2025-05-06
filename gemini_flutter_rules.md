@@ -1,4 +1,4 @@
-#README.md
+# README
 1.  Always include a Table of Contents linking to major sections (`##` headings).
 2.  Add a `Back to Top` link at the end of each major section.
 3.  Use numbered lists for step-by-step instructions.
@@ -8,7 +8,7 @@
 7.  When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.
 
 
-Flutter App rules
+# Flutter App rules
 
 
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_code_with_gemini/rules_page.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import url_launcher
+
 
 void main() {
   runApp(const MyApp());
@@ -13,17 +15,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'flutter_code_with_gemini',
-      debugShowCheckedModeBanner: false, // Add this line
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
+      // debugShowCheckedModeBanner: false, // This line was added
+      theme: ThemeData( // Reverted from const
+        colorScheme: ColorScheme.fromSeed( // Reverted from const
             seedColor: Colors.blue), // You can choose any color
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Open GitHub Project'),
+      // routes: { // Named routes were added
+      //   '/rules': (context) => const RulesPage(),
+      // },
     );
   }
 }
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -89,6 +93,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: _launchURL,
               child: const Text('Open Project on GitHub'),
+            ),
+            const SizedBox(height: 20), // Add some spacing
+            ElevatedButton(
+              onPressed: () {
+                // Reverted to original MaterialPageRoute navigation
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RulesPage()),
+                );
+              },
+              child: const Text('View App & README Rules'),
             ),
           ],
         ),
