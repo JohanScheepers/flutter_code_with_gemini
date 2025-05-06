@@ -1,5 +1,7 @@
 # flutter_code_with_gemini
 
+![Flutter Code with Gemini App](assets/images/flutter_code_with_gemini.PNG)
+
 A Flutter project demonstrating how to add custom context or rules to Google's Gemini Code Assist to tailor its code generation and assistance within your development workflow.
 
 ## Table of Contents
@@ -64,7 +66,7 @@ This README.md file was generated and updated following these guidelines (which 
 [Back to Top](#flutter_code_with_gemini)
 
 
-# Gemini's Flutter App Development Guidelines
+## Gemini's Flutter App Development Guidelines
 
 Hello there! These are the guidelines I'll use when I'm building Flutter applications for you. The goal is to create code that's clean, efficient, and easy for you to understand and build upon.
 
