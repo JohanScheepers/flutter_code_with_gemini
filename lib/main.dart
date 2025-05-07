@@ -11,14 +11,43 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Define a seed color for your theme
+    const seedColor = Colors.blue;
+
+    // Define the light theme
+    final lightTheme = ThemeData(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: seedColor,
+        brightness: Brightness.light,
+      ),
+      textTheme: const TextTheme(
+        // Example: Define a style for displayLarge
+        displayLarge: TextStyle(fontSize: 57.0, fontWeight: FontWeight.bold),
+        // Add other text styles as needed
+      ),
+      useMaterial3: true,
+    );
+
+    // Define the dark theme
+    final darkTheme = ThemeData(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: seedColor,
+        brightness: Brightness.dark, // Important for dark theme
+      ),
+      textTheme: const TextTheme(
+        // Example: Define a style for displayLarge for dark theme
+        displayLarge: TextStyle(fontSize: 57.0, fontWeight: FontWeight.bold),
+        // Add other text styles as needed, potentially with different colors
+      ),
+      useMaterial3: true,
+    );
+
     return MaterialApp.router(
       title: 'flutter_code_with_gemini',
       debugShowCheckedModeBanner: false, // Hide the debug banner
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue), // You can choose any color
-        useMaterial3: true,
-      ),
+      theme: lightTheme, // Set the light theme
+      darkTheme: darkTheme, // Set the dark theme
+      themeMode: ThemeMode.system, // Allow the system to control the theme initially
       routerConfig: AppRouter.router,
     );
   }

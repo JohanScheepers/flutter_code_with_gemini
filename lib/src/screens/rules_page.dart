@@ -14,7 +14,8 @@ class RulesPage extends StatelessWidget {
 
     final TextStyle defaultStyleForSpans = TextStyle(
       fontSize: isSubItem ? 14 : 15,
-      color: Colors.black, // Set text color to black for rule items
+      // Use the theme's default body text color
+      color: Theme.of(context).textTheme.bodyMedium?.color,
     );
 
     for (final match in exp.allMatches(text)) {
@@ -73,9 +74,10 @@ class RulesPage extends StatelessWidget {
       BuildContext context, String title, String content) {
     return ExpansionTile(
       title: Text(title,
-          style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold)), // Title to black and bold
+          style: TextStyle(
+              // Use a prominent color from the theme, e.g., onSurface
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.bold)),
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: _buildSubPoints(context, content),
     );
@@ -86,9 +88,8 @@ class RulesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'App & README Rules',
-          style: TextStyle(color: Colors.black), // AppBar title to black
-        ),
+          'App & README Rules', // AppBar title will use AppBarTheme
+        ), // or default to Theme.of(context).colorScheme.onPrimary
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: ListView(
@@ -98,8 +99,7 @@ class RulesPage extends StatelessWidget {
             'Flutter App Development Guidelines',
             style: Theme.of(context)
                 .textTheme
-                .headlineSmall
-                ?.copyWith(color: Colors.black), // Section title to black
+                .headlineSmall, // Let the theme define the color
           ),
           const SizedBox(height: 16.0),
           _buildRuleExpansionTile(context, '1. Project Setup & Structure', '''
@@ -115,8 +115,6 @@ class RulesPage extends StatelessWidget {
                   *   Class names, enums, and typedefs will be in `UpperCamelCase`.
                   *   Variables, methods, and parameters will be in `lowerCamelCase`.
                   *   Constants will be in `lowerCamelCase` or `UPPER_SNAKE_CASE` if they are top-level or static consts.
-              4.  **Debug Banner**:
-                  *   The debug banner (`debugShowCheckedModeBanner`) will typically be set to `false` in the `MaterialApp` widget for a cleaner appearance during development and for production builds.
             '''),
           _buildRuleExpansionTile(context, '2. Coding Standards & Style', '''
               1.  **Effective Dart**: I will adhere to the guidelines outlined in Effective Dart.
@@ -160,8 +158,8 @@ class RulesPage extends StatelessWidget {
               6.  **Consistency**: Apply all theming elements (colors, typography, component styles, spacing) consistently across the entire application to create a cohesive user experience.
               7.  **Accessibility (Reiteration)**: Beyond color contrast, ensure that typography choices (font family, size, weight) are legible and that theme changes do not negatively impact other accessibility features.
             '''),
-          _buildRuleExpansionTile(context, '5. State Management', '''
-              1.  **Appropriate Solution**:
+          _buildRuleExpansionTile(
+              context, '5. State Management', '''1.  **Appropriate Solution**:
                   *   Before implementing state management, I will ask: "Is this a simple or complex app? Option 1: Simple, Option 2: Complex."
                   *   If you select **Option 1 (Simple)**: I will use `setState` for managing simple, local widget state.
                   *   If you select **Option 2 (Complex)**: I will use Riverpod for more comprehensive state management needs.
@@ -206,68 +204,78 @@ class RulesPage extends StatelessWidget {
                   *   If **Option 1 (`go_router`)** is selected, I will use the `go_router` package. This is particularly recommended for applications with complex navigation requirements (e.g., deep linking, nested routing).
                   *   If **Option 2 (`Navigator.pushNamed`)** is selected, I will use named routes as described in point 1 ("Named Routes") above.
             '''),
-          _buildRuleExpansionTile(context, '8. Dependencies & Packages', '''
+          _buildRuleExpansionTile(context, '9. Dependencies & Packages', '''
               1.  **Judicious Use**: I'll only add packages from `pub.dev` when they provide significant value and are well-maintained.
               2.  **Version Pinning**: I'll specify dependency versions in `pubspec.yaml` carefully, often using caret syntax (e.g., `^1.2.3`) to allow compatible updates while ensuring stability.
               3.  **Up-to-Date**: I'll try to use recent, stable versions of packages.
               4.  **Cleanup**: I'll remind you or attempt to remove unused dependencies to keep the project lean.
+              5.  **CLI Command for Adding Packages**: When I suggest adding a new package, I will also provide the corresponding `flutter pub add <package_name>` command for easy installation.
             '''),
-          _buildRuleExpansionTile(context, '9. Testing', '''
+          _buildRuleExpansionTile(context, '10. Testing', '''
               1.  **Unit Tests**: **I will always aim to generate unit tests for new functions and methods, especially those containing business logic.**
                   *   These tests will verify the correctness of individual functions, methods, or classes in isolation.
                   *   I'll use the `test` package.
               2.  **Widget Tests**:
                   *   I'll write widget tests to verify that widgets render correctly and respond to user interactions as expected.
                   *   I'll use the `flutter_test` package.
-              3.  **Integration Tests**: For more complex flows, I might suggest or provide integration tests.
+              3.  **Integration Tests**: For more complex flows, I might suggest or provide integration tests using `flutter_driver` or `integration_test`.
               4.  **Test Coverage**: I'll aim for reasonable test coverage, focusing on critical paths and complex logic.
               5.  **Mocking**: I'll use mocking (e.g., with the `mockito` package) to isolate units under test from their dependencies.
             '''),
-          _buildRuleExpansionTile(context, '10. Performance', '''
+          _buildRuleExpansionTile(context, '11. Performance', '''
               1.  **Widget Rebuilds**: I'll be mindful of minimizing unnecessary widget rebuilds. This includes:
                   *   Using `const` widgets wherever possible.
                   *   Breaking down large widgets.
                   *   Properly using state management to update only necessary parts of the UI.
               2.  **`ListView.builder`**: For long lists, I'll always use `ListView.builder` (or similar constructors like `GridView.builder`) for performance.
               3.  **Lazy Loading**: I'll implement lazy loading for data and resources where appropriate.
-              4.  **DevTools**: I'll encourage the use of Flutter DevTools for profiling and identifying performance bottlenecks.
+              4.  **Flutter DevTools**: I'll encourage the use of Flutter DevTools for profiling and identifying performance bottlenecks.
               5.  **Avoid Expensive Operations in Build**: I'll avoid performing expensive computations or I/O operations directly within `build` methods.
             '''),
           _buildRuleExpansionTile(
-              context, '11. Code Documentation & Comments', '''
+              context, '12. Code Documentation & Comments', '''
               1.  **Dartdocs**: I'll write Dartdoc comments (`///`) for all public classes, methods, functions, and important properties. This helps in generating documentation and improves code understanding.
+                  *   Example:
+                      ```dart
+                      /// Fetches user data from the server.
+                      ///
+                      /// Throws a [NetworkException] if the request fails.
+                      Future<User> fetchUserData(String userId) async {
+                        // ... implementation ...
+                      }
+                      ```
               2.  **Inline Comments**: I'll use inline comments (`//`) to explain complex, non-obvious, or tricky parts of the code.
               3.  **Clarity over Quantity**: Comments will be used to clarify *why* something is done, not just *what* is done (if the code itself is clear).
               4.  **Keep Updated**: I'll try to ensure comments and documentation are kept in sync with code changes.
             '''),
-          _buildRuleExpansionTile(context, '12. Security Considerations', '''
+          _buildRuleExpansionTile(context, '13. Security Considerations', '''
               1.  **Sensitive Data**: I will avoid hardcoding sensitive information (API keys, secrets) directly in the client-side code. I'll recommend using environment variables or secure storage solutions.
               2.  **Network Communication**: I'll default to using HTTPS for all network requests.
               3.  **Input Validation**: I'll implement input validation on both client-side and server-side (though I primarily generate client-side code).
               4.  **Dependency Security**: I'll be mindful of potential vulnerabilities in third-party packages.
               5.  **Local Storage**: When using local storage (e.g., `shared_preferences`, `flutter_secure_storage`), I'll consider the sensitivity of the data being stored.
             '''),
-          _buildRuleExpansionTile(context, '13. User Experience (UX) Focus', '''
+          _buildRuleExpansionTile(context, '14. User Experience (UX) Focus', '''
               1.  **Feedback**: I'll ensure the app provides appropriate feedback for user actions (e.g., taps, loading states, success/error messages).
               2.  **Accessibility (A11y)**: I'll try to use widgets and practices that support accessibility, such as providing semantic labels and ensuring sufficient contrast (though visual design is often iterative).
               3.  **Platform Conventions**: I'll aim to follow common UI/UX patterns for iOS and Android where appropriate, or create a consistent custom design.
               4.  **Intuitive Interfaces**: I'll strive to generate UIs that are intuitive and easy to navigate.
             '''),
-          _buildRuleExpansionTile(context, '14. Version Control Practices', '''
+          _buildRuleExpansionTile(context, '15. Version Control Practices', '''
               1.  **`.gitignore`**: I'll assume a standard Flutter `.gitignore` file is in use to exclude unnecessary files from version control.
               2.  **Logical Changes**: When I make changes or add features, I'll try to do so in logical, self-contained chunks that would correspond to good commit practices.
             '''),
-          _buildRuleExpansionTile(context, '15. Continuous Improvement', '''
+          _buildRuleExpansionTile(context, '16. Continuous Improvement', '''
               1.  **Stay Updated**: I'll be continuously updated with the latest Flutter features, Dart language enhancements, and community best practices.
               2.  **Adaptability**: I'll be open to adapting these guidelines based on new information, specific project requirements, or your feedback.
             '''),
-          const SizedBox(height: 16.0),
-          Text(
-            'README Generation Rules',
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(color: Colors.black), // Section title to black
+          const SizedBox(height: 24.0), // Spacer before README rules
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'README Generation Rules',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
           ),
           const SizedBox(height: 8.0),
           ..._buildSubPoints(context, '''

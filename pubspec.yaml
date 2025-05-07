@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   url_launcher: ^6.3.1 # The version of url_launcher might also be updated by `flutter pub add` if a newer compatible version is available or if go_router has a specific dependency constraint. For this example, we'll assume it remains the same or is handled correctly by the pub client.
   http: ^1.4.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:

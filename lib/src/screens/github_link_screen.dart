@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_code_with_gemini/src/services/github_service.dart'; // Import the service
 import 'package:flutter_code_with_gemini/src/constants/app_constants.dart'; // Import constants
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart'; // Import for date formatting
 
 class GithubLinkScreen extends StatefulWidget {
 
@@ -91,6 +92,17 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
     );
   }
 
+  String _formatDateTime(String? dateTimeString) {
+    if (dateTimeString == null || dateTimeString.isEmpty) {
+      return 'N/A';
+    }
+    try {
+      final DateTime dateTime = DateTime.parse(dateTimeString);
+      return DateFormat.yMMMd().add_jm().format(dateTime); // e.g., May 7, 2025, 9:36 AM
+    } catch (e) {
+      return 'Invalid Date';
+    }
+  }
   Widget _buildStatsContentWidget() {
     if (_isLoading) {
       return const Center(child: CircularProgressIndicator());
@@ -128,6 +140,12 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
                   _repoStats!['subscribers_count']),
               if (_repoStats!['language'] != null)
                 _buildStatRow(Icons.code, 'Language', _repoStats!['language']),
+              _buildStatRow(Icons.update, 'Last Updated',
+                  _formatDateTime(_repoStats!['updated_at'] as String?)),
+              _buildStatRow(
+                  Icons.publish_outlined,
+                  'Last Pushed',
+                  _formatDateTime(_repoStats!['pushed_at'] as String?)),
             ],
           ),
         ),

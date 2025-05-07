@@ -20,6 +20,7 @@ This document outlines the rules and best practices I, as a Gemini-powered AI, w
 * [15. Version Control Practices](#15-version-control-practices)
 * [16. Continuous Improvement](#16-continuous-improvement)
 * [README Generation Rules](#readme-generation-rules)
+* [17. UI Constants & Theme Helpers](#17-ui-constants--theme-helpers)
 
 ## 1. Project Setup & Structure
 
@@ -37,10 +38,8 @@ The foundation of any good app is a clean and understandable project structure.
     *   Class names, enums, and typedefs will be in `UpperCamelCase`.
     *   Variables, methods, and parameters will be in `lowerCamelCase`.
     *   Constants will be in `lowerCamelCase` or `UPPER_SNAKE_CASE` if they are top-level or static consts.
-4.  **Debug Banner**:
-    *   The debug banner (`debugShowCheckedModeBanner`) will typically be set to `false` in the `MaterialApp` widget for a cleaner appearance during development and for production builds.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 2. Coding Standards & Style
 
@@ -56,7 +55,7 @@ Consistent code is readable code!
     *   Functions and classes will be kept concise and focused on a single responsibility.
 5.  **Type Safety**: I will leverage Dart's strong type system by specifying types for variables, parameters, and return values. I'll use `dynamic` sparingly and only when necessary.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 3. Widget Design & Composition
 
@@ -73,7 +72,7 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
 7.  **User Preferences & Accessibility Settings**: I will strive to build UIs that respect and adapt to user-defined preferences (e.g., theme choices, font sizes) and accessibility settings configured on their device (e.g., screen reader compatibility, larger text).
 8.  **Widget Sourcing & Preferences**: Preference will be given to Flutter's built-in widgets. In cases where I need widgets from `pub.dev`, the frequency of updates and whether the package is well-maintained will be considered first. For charts, preference will be given to the nimble_charts package.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 4. Theming
 
@@ -97,7 +96,7 @@ A consistent visual appearance enhances the user experience.
 6.  **Consistency**: Apply all theming elements (colors, typography, component styles, spacing) consistently across the entire application to create a cohesive user experience.
 7.  **Accessibility (Reiteration)**: Beyond color contrast, ensure that typography choices (font family, size, weight) are legible and that theme changes do not negatively impact other accessibility features.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 5. State Management
 
@@ -111,7 +110,7 @@ Managing state effectively is key to a robust Flutter app.
 3.  **Scoped State**: I'll aim to keep state as localized as possible, providing it only to the widgets that need it.
 4.  **Immutability**: When using more advanced state management, I'll often favor immutable state objects to ensure predictability and simplify debugging.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 6. Asynchronous Operations & Error Handling
 
@@ -125,7 +124,7 @@ Handling operations that take time, and dealing with potential errors, is crucia
     *   I'll aim to display user-friendly error messages rather than crashing the app or showing raw error details.
     *   I'll check if a widget `mounted` before calling `setState` or accessing `context` in asynchronous callbacks to prevent errors.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 7. HTTP Calls & API Interaction
 
@@ -148,7 +147,7 @@ Interacting with external services and APIs is a common requirement.
 6.  **Constants for URLs**: Base URLs and frequently used API path segments should be defined as constants (e.g., in an `app_constants.dart` file or within the service) to avoid magic strings.
 7.  **Data Models**: JSON responses from APIs should be parsed into strongly-typed Dart model classes (with `fromJson` factory constructors) to ensure type safety.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 8. Navigation
 
@@ -161,7 +160,7 @@ Getting around the app should be intuitive.
     *   If **Option 1 (`go_router`)** is selected, I will use the `go_router` package. This is particularly recommended for applications with complex navigation requirements (e.g., deep linking, nested routing).
     *   If **Option 2 (`Navigator.pushNamed`)** is selected, I will use named routes as described in point 1 ("Named Routes") above.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 9. Dependencies & Packages
 
@@ -171,24 +170,26 @@ I'll leverage the rich Flutter ecosystem responsibly.
 2.  **Version Pinning**: I'll specify dependency versions in `pubspec.yaml` carefully, often using caret syntax (e.g., `^1.2.3`) to allow compatible updates while ensuring stability.
 3.  **Up-to-Date**: I'll try to use recent, stable versions of packages.
 4.  **Cleanup**: I'll remind you or attempt to remove unused dependencies to keep the project lean.
+5.  **CLI Command for Adding Packages**: When I suggest adding a new package, I will also provide the corresponding `flutter pub add <package_name>` command for easy installation.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 10. Testing
 
 To ensure quality and maintainability, testing is essential.
 
-1.  **Unit Tests**: **I will always aim to generate unit tests for new functions and methods, especially those containing business logic.**
+1.  **Unit Tests**:
+    *   **I will always aim to generate unit tests for new functions and methods, especially those containing business logic.**
     *   These tests will verify the correctness of individual functions, methods, or classes in isolation.
     *   I'll use the `test` package.
 2.  **Widget Tests**:
     *   I'll write widget tests to verify that widgets render correctly and respond to user interactions as expected.
     *   I'll use the `flutter_test` package.
-3.  **Integration Tests**: For more complex flows, I might suggest or provide integration tests using `flutter_driver` or `integration_test`.
+3.  **Integration Tests**: For more complex flows, I might suggest or provide integration tests.
 4.  **Test Coverage**: I'll aim for reasonable test coverage, focusing on critical paths and complex logic.
 5.  **Mocking**: I'll use mocking (e.g., with the `mockito` package) to isolate units under test from their dependencies.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 11. Performance
 
@@ -200,10 +201,10 @@ A smooth and responsive app is a joy to use.
     *   Properly using state management to update only necessary parts of the UI.
 2.  **`ListView.builder`**: For long lists, I'll always use `ListView.builder` (or similar constructors like `GridView.builder`) for performance.
 3.  **Lazy Loading**: I'll implement lazy loading for data and resources where appropriate.
-4.  **Flutter DevTools**: I'll encourage the use of Flutter DevTools for profiling and identifying performance bottlenecks.
+4.  **DevTools**: I'll encourage the use of Flutter DevTools for profiling and identifying performance bottlenecks.
 5.  **Avoid Expensive Operations in Build**: I'll avoid performing expensive computations or I/O operations directly within `build` methods.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 12. Code Documentation & Comments
 
@@ -223,7 +224,7 @@ Code should be understandable not just by machines, but by humans too!
 3.  **Clarity over Quantity**: Comments will be used to clarify *why* something is done, not just *what* is done (if the code itself is clear).
 4.  **Keep Updated**: I'll try to ensure comments and documentation are kept in sync with code changes.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 13. Security Considerations
 
@@ -235,7 +236,7 @@ Building secure apps is a top priority.
 4.  **Dependency Security**: I'll be mindful of potential vulnerabilities in third-party packages.
 5.  **Local Storage**: When using local storage (e.g., `shared_preferences`, `flutter_secure_storage`), I'll consider the sensitivity of the data being stored.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 14. User Experience (UX) Focus
 
@@ -246,16 +247,16 @@ While I generate code, I'll keep the end-user experience in mind.
 3.  **Platform Conventions**: I'll aim to follow common UI/UX patterns for iOS and Android where appropriate, or create a consistent custom design.
 4.  **Intuitive Interfaces**: I'll strive to generate UIs that are intuitive and easy to navigate.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 15. Version Control Practices
 
-Good version control hygiene is important for collaboration and project history.
+Good version control hygiene is important for collaboration and project history. While I don't directly commit code, I'll generate it in a way that's conducive to good VCS practices.
 
 1.  **`.gitignore`**: I'll assume a standard Flutter `.gitignore` file is in use to exclude unnecessary files from version control.
 2.  **Logical Changes**: When I make changes or add features, I'll try to do so in logical, self-contained chunks that would correspond to good commit practices.
 
-Back to Top
+[Back to Top](#table-of-contents)
 
 ## 16. Continuous Improvement
 
@@ -264,18 +265,42 @@ The Flutter ecosystem is always evolving, and so am I!
 1.  **Stay Updated**: I'll be continuously updated with the latest Flutter features, Dart language enhancements, and community best practices.
 2.  **Adaptability**: I'll be open to adapting these guidelines based on new information, specific project requirements, or your feedback.
 
-Back to Top
+[Back to Top](#table-of-contents)
+
+## 17. UI Constants & Theme Helpers
+
+To ensure visual consistency for spacing, padding, border radii, and other common UI values, and to make them easily updatable.
+
+1.  **Dedicated Constants File**:
+    *   I will create or use a dedicated file for UI constants, for example, `lib/src/constants/ui_constants.dart` or `lib/src/common/ui_helpers.dart`.
+2.  **Standard Spacing & Padding**:
+    *   Define standard spacing values as `double` constants (e.g., `kSpaceSmall = 4.0`, `kSpaceMedium = 8.0`, `kSpaceLarge = 16.0`).
+    *   Define standard padding `EdgeInsets` constants (e.g., `kPagePadding = EdgeInsets.all(16.0)`, `kHorizontalPaddingMedium = EdgeInsets.symmetric(horizontal: 8.0)`).
+    *   These constants should be used throughout the application for `Padding` widgets, `SizedBox` dimensions, margins in `Container`s, etc., instead of magic numbers.
+3.  **Standard Border Radius**:
+    *   Define standard `BorderRadius` constants (e.g., `kBorderRadiusSmall = BorderRadius.circular(4.0)`, `kCardBorderRadius = BorderRadius.circular(12.0)`).
+4.  **Reusable `SizedBox` Widgets (Theme Helpers)**:
+    *   Consider creating `const SizedBox` instances for common fixed-size spacing (e.g., `const SizedBox kVerticalSpacerSmall = SizedBox(height: kSpaceSmall);`, `const SizedBox kHorizontalSpacerMedium = SizedBox(width: kSpaceMedium);`). These can make widget trees more readable.
+5.  **Other UI Constants**:
+    *   This file can also be a home for other frequently used UI values like standard icon sizes (`kIconSizeSmall`, `kIconSizeMedium`), button heights (`kButtonHeight`), card elevations (`kCardElevationDefault`), or animation durations (`kShortAnimationDuration`).
+6.  **Naming Conventions**:
+    *   Constants should follow clear naming conventions, often prefixed with `k` (e.g., `kPagePadding`) or be descriptive (e.g., `smallSpace`).
+7.  **Usage**:
+    *   I will consistently import and use these constants in widget build methods to maintain uniformity across the app.
+
+[Back to Top](#table-of-contents)
+
 
 ## README Generation Rules
 
 When generating README.md files or similar documentation:
 
 1.  Always include a Table of Contents linking to major sections (`##` headings).
-2.  Add a `Back to Top` link at the end of each major section (linking to the Table of Contents).
+2.  Add a `Back to Top` link at the end of each major section.
 3.  Use numbered lists for step-by-step instructions.
-4.  Use bullet points for lists of related items or options.
+4.  Use bullet points for lists of related items or options (like in the Table of Contents).
 5.  Format examples clearly, using markdown code blocks where appropriate.
 6.  Explain the purpose of a section before diving into details.
 7.  When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.
 
-Back to Top
+[Back to Top](#table-of-contents)
