@@ -179,7 +179,26 @@ class RulesPage extends StatelessWidget {
                   *   I'll aim to display user-friendly error messages rather than crashing the app or showing raw error details.
                   *   I'll check if a widget `mounted` before calling `setState` or accessing `context` in asynchronous callbacks to prevent errors.
             '''),
-          _buildRuleExpansionTile(context, '7. Navigation', '''
+          _buildRuleExpansionTile(
+              context, '7. HTTP Calls & API Interaction', '''
+              1.  **Dedicated Service Layer**:
+                  *   All HTTP calls and API interactions will be encapsulated within a dedicated service layer (e.g., `services/api_service.dart` or `services/github_service.dart`).
+                  *   UI widgets will not make HTTP calls directly but will interact with the service layer.
+              2.  **`http` Package**:
+                  *   The `http` package (`package:http/http.dart`) will be the standard choice for making HTTP requests.
+              3.  **Generic Request Handler**:
+                  *   Services should implement a generic, private helper method for common request types (e.g., `_getRequest(String endpoint)`, `_postRequest(String endpoint, Map<String, dynamic> body)`).
+                  *   This helper method will handle base URL concatenation, common headers, and basic response parsing/error checking.
+              4.  **Specific API Methods**:
+                  *   For each distinct API endpoint or operation, the service will expose a public method (e.g., `Future<UserProfile> fetchUserProfile(String userId)`).
+                  *   These methods will call the generic request handler and perform any specific data transformation or error handling relevant to that endpoint.
+              5.  **Error Handling (Service Layer)**:
+                  *   Services will robustly handle potential errors: check HTTP status codes and throw specific exceptions for non-successful responses (e.g., `ApiException('Failed to load data (Status code: \${response.statusCode})')`). Use `try-catch` blocks for network errors.
+                  *   Exceptions thrown by the service should be caught and handled gracefully in the calling layer (e.g., UI or state management).
+              6.  **Constants for URLs**: Base URLs and frequently used API path segments should be defined as constants (e.g., in an `app_constants.dart` file or within the service) to avoid magic strings.
+              7.  **Data Models**: JSON responses from APIs should be parsed into strongly-typed Dart model classes (with `fromJson` factory constructors) to ensure type safety.
+            '''),
+          _buildRuleExpansionTile(context, '8. Navigation', '''
               1.  **Named Routes**: I'll prefer using named routes (`Navigator.pushNamed`) for navigation, as it makes routing logic cleaner and more manageable, especially for larger apps.
                   *   Example: `Navigator.pushNamed(context, '/profile');`
               2.  **Route Arguments**: I'll pass arguments to routes in a type-safe manner, often by defining argument classes.

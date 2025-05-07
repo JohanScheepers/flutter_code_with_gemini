@@ -1,25 +1,31 @@
-# Gemini's Flutter App Development Guidelines
+# Gemini Flutter Development Rules
 
-## README.md rules
-1.  Always include a Table of Contents linking to major sections (`##` headings).
-2.  Add a `Back to Top` link at the end of each major section.
-3.  Use numbered lists for step-by-step instructions.
-4.  Use bullet points for lists of related items or options (like in the Table of Contents).
-5.  Format examples clearly, using markdown code blocks where appropriate.
-6.  Explain the purpose of a section before diving into details.
-7.  When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.
+This document outlines the rules and best practices I, as a Gemini-powered AI, will adhere to when generating Flutter application code and related documentation.
 
-
-## Flutter App rules
-
-
+## Table of Contents
+* [1. Project Setup & Structure](#1-project-setup--structure)
+* [2. Coding Standards & Style](#2-coding-standards--style)
+* [3. Widget Design & Composition](#3-widget-design--composition)
+* [4. Theming](#4-theming)
+* [5. State Management](#5-state-management)
+* [6. Asynchronous Operations & Error Handling](#6-asynchronous-operations--error-handling)
+* [7. HTTP Calls & API Interaction](#7-http-calls--api-interaction)
+* [8. Navigation](#8-navigation)
+* [9. Dependencies & Packages](#9-dependencies--packages)
+* [10. Testing](#10-testing)
+* [11. Performance](#11-performance)
+* [12. Code Documentation & Comments](#12-code-documentation--comments)
+* [13. Security Considerations](#13-security-considerations)
+* [14. User Experience (UX) Focus](#14-user-experience-ux-focus)
+* [15. Version Control Practices](#15-version-control-practices)
+* [16. Continuous Improvement](#16-continuous-improvement)
+* [README Generation Rules](#readme-generation-rules)
 
 ## 1. Project Setup & Structure
 
 The foundation of any good app is a clean and understandable project structure.
 
 1.  **Standard Initialization**: I'll always start new projects using the official `flutter create <project_name>` command to ensure a standard setup.
-
 2.  **Directory Organization**:
     *   I'll primarily use the `lib` directory for Dart code.
     *   Within `lib`, directory organization will be done by layers (e.g., `lib/src/widgets/`, `lib/src/models/`, `lib/src/services/`).
@@ -31,10 +37,10 @@ The foundation of any good app is a clean and understandable project structure.
     *   Class names, enums, and typedefs will be in `UpperCamelCase`.
     *   Variables, methods, and parameters will be in `lowerCamelCase`.
     *   Constants will be in `lowerCamelCase` or `UPPER_SNAKE_CASE` if they are top-level or static consts.
-
 4.  **Debug Banner**:
     *   The debug banner (`debugShowCheckedModeBanner`) will typically be set to `false` in the `MaterialApp` widget for a cleaner appearance during development and for production builds.
 
+Back to Top
 
 ## 2. Coding Standards & Style
 
@@ -49,6 +55,8 @@ Consistent code is readable code!
     *   I'll avoid overly long lines of code (typically aiming for around 80-100 characters).
     *   Functions and classes will be kept concise and focused on a single responsibility.
 5.  **Type Safety**: I will leverage Dart's strong type system by specifying types for variables, parameters, and return values. I'll use `dynamic` sparingly and only when necessary.
+
+Back to Top
 
 ## 3. Widget Design & Composition
 
@@ -65,8 +73,12 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
 7.  **User Preferences & Accessibility Settings**: I will strive to build UIs that respect and adapt to user-defined preferences (e.g., theme choices, font sizes) and accessibility settings configured on their device (e.g., screen reader compatibility, larger text).
 8.  **Widget Sourcing & Preferences**: Preference will be given to Flutter's built-in widgets. In cases where I need widgets from `pub.dev`, the frequency of updates and whether the package is well-maintained will be considered first. For charts, preference will be given to the nimble_charts package.
 
+Back to Top
 
 ## 4. Theming
+
+A consistent visual appearance enhances the user experience.
+
 1.  **Centralized Theme**: Define app-wide themes (`ThemeData`) centrally in `MaterialApp`, including `ColorScheme` and `TextTheme`.
 2.  **Contextual Access**: Always access theme properties via `Theme.of(context)` (e.g., `Theme.of(context).colorScheme.primary`) instead of hardcoding values.
 3.  **Color Palette Strategy**:
@@ -85,8 +97,12 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
 6.  **Consistency**: Apply all theming elements (colors, typography, component styles, spacing) consistently across the entire application to create a cohesive user experience.
 7.  **Accessibility (Reiteration)**: Beyond color contrast, ensure that typography choices (font family, size, weight) are legible and that theme changes do not negatively impact other accessibility features.
 
+Back to Top
 
 ## 5. State Management
+
+Managing state effectively is key to a robust Flutter app.
+
 1.  **Appropriate Solution**:
     *   Before implementing state management, I will ask: "Is this a simple or complex app? Option 1: Simple, Option 2: Complex."
     *   If you select **Option 1 (Simple)**: I will use `setState` for managing simple, local widget state.
@@ -95,7 +111,11 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
 3.  **Scoped State**: I'll aim to keep state as localized as possible, providing it only to the widgets that need it.
 4.  **Immutability**: When using more advanced state management, I'll often favor immutable state objects to ensure predictability and simplify debugging.
 
+Back to Top
+
 ## 6. Asynchronous Operations & Error Handling
+
+Handling operations that take time, and dealing with potential errors, is crucial.
 
 1.  **`async/await`**: I'll use `async` and `await` for clear and readable asynchronous code.
 2.  **Futures and Streams**: I'll use `FutureBuilder` and `StreamBuilder` appropriately to reactively build UI based on the state of asynchronous operations.
@@ -105,8 +125,34 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
     *   I'll aim to display user-friendly error messages rather than crashing the app or showing raw error details.
     *   I'll check if a widget `mounted` before calling `setState` or accessing `context` in asynchronous callbacks to prevent errors.
 
+Back to Top
 
-## 7. Navigation
+## 7. HTTP Calls & API Interaction
+
+Interacting with external services and APIs is a common requirement.
+
+1.  **Dedicated Service Layer**:
+    *   All HTTP calls and API interactions will be encapsulated within a dedicated service layer (e.g., `services/api_service.dart` or `services/github_service.dart`).
+    *   UI widgets will not make HTTP calls directly but will interact with the service layer.
+2.  **`http` Package**:
+    *   The `http` package (`package:http/http.dart`) will be the standard choice for making HTTP requests.
+3.  **Generic Request Handler**:
+    *   Services should implement a generic, private helper method for common request types (e.g., `_getRequest(String endpoint)`, `_postRequest(String endpoint, Map<String, dynamic> body)`).
+    *   This helper method will handle base URL concatenation, common headers, and basic response parsing/error checking.
+4.  **Specific API Methods**:
+    *   For each distinct API endpoint or operation, the service will expose a public method (e.g., `Future<UserProfile> fetchUserProfile(String userId)`).
+    *   These methods will call the generic request handler and perform any specific data transformation or error handling relevant to that endpoint.
+5.  **Error Handling (Service Layer)**:
+    *   Services will robustly handle potential errors: check HTTP status codes and throw specific exceptions for non-successful responses (e.g., `ApiException('Failed to load data (Status code: ${response.statusCode})')`). Use `try-catch` blocks for network errors.
+    *   Exceptions thrown by the service should be caught and handled gracefully in the calling layer (e.g., UI or state management).
+6.  **Constants for URLs**: Base URLs and frequently used API path segments should be defined as constants (e.g., in an `app_constants.dart` file or within the service) to avoid magic strings.
+7.  **Data Models**: JSON responses from APIs should be parsed into strongly-typed Dart model classes (with `fromJson` factory constructors) to ensure type safety.
+
+Back to Top
+
+## 8. Navigation
+
+Getting around the app should be intuitive.
 
 1.  **Named Routes**: I'll prefer using named routes (`Navigator.pushNamed`) for navigation, as it makes routing logic cleaner and more manageable, especially for larger apps.
     *   Example: `Navigator.pushNamed(context, '/profile');`
@@ -115,30 +161,38 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
     *   If **Option 1 (`go_router`)** is selected, I will use the `go_router` package. This is particularly recommended for applications with complex navigation requirements (e.g., deep linking, nested routing).
     *   If **Option 2 (`Navigator.pushNamed`)** is selected, I will use named routes as described in point 1 ("Named Routes") above.
 
+Back to Top
 
-## 8. Dependencies & Packages
+## 9. Dependencies & Packages
+
+I'll leverage the rich Flutter ecosystem responsibly.
 
 1.  **Judicious Use**: I'll only add packages from `pub.dev` when they provide significant value and are well-maintained.
 2.  **Version Pinning**: I'll specify dependency versions in `pubspec.yaml` carefully, often using caret syntax (e.g., `^1.2.3`) to allow compatible updates while ensuring stability.
 3.  **Up-to-Date**: I'll try to use recent, stable versions of packages.
 4.  **Cleanup**: I'll remind you or attempt to remove unused dependencies to keep the project lean.
 
+Back to Top
 
-## 9. Testing
+## 10. Testing
 
-1.  **Unit Tests**:
-    *   **I will always aim to generate unit tests for new functions and methods, especially those containing business logic.**
+To ensure quality and maintainability, testing is essential.
+
+1.  **Unit Tests**: **I will always aim to generate unit tests for new functions and methods, especially those containing business logic.**
     *   These tests will verify the correctness of individual functions, methods, or classes in isolation.
     *   I'll use the `test` package.
 2.  **Widget Tests**:
     *   I'll write widget tests to verify that widgets render correctly and respond to user interactions as expected.
     *   I'll use the `flutter_test` package.
-3.  **Integration Tests**: For more complex flows, I might suggest or provide integration tests.
+3.  **Integration Tests**: For more complex flows, I might suggest or provide integration tests using `flutter_driver` or `integration_test`.
 4.  **Test Coverage**: I'll aim for reasonable test coverage, focusing on critical paths and complex logic.
 5.  **Mocking**: I'll use mocking (e.g., with the `mockito` package) to isolate units under test from their dependencies.
 
+Back to Top
 
-## 10. Performance
+## 11. Performance
+
+A smooth and responsive app is a joy to use.
 
 1.  **Widget Rebuilds**: I'll be mindful of minimizing unnecessary widget rebuilds. This includes:
     *   Using `const` widgets wherever possible.
@@ -146,11 +200,14 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
     *   Properly using state management to update only necessary parts of the UI.
 2.  **`ListView.builder`**: For long lists, I'll always use `ListView.builder` (or similar constructors like `GridView.builder`) for performance.
 3.  **Lazy Loading**: I'll implement lazy loading for data and resources where appropriate.
-4.  **DevTools**: I'll encourage the use of Flutter DevTools for profiling and identifying performance bottlenecks.
+4.  **Flutter DevTools**: I'll encourage the use of Flutter DevTools for profiling and identifying performance bottlenecks.
 5.  **Avoid Expensive Operations in Build**: I'll avoid performing expensive computations or I/O operations directly within `build` methods.
 
+Back to Top
 
-## 11. Code Documentation & Comments
+## 12. Code Documentation & Comments
+
+Code should be understandable not just by machines, but by humans too!
 
 1.  **Dartdocs**: I'll write Dartdoc comments (`///`) for all public classes, methods, functions, and important properties. This helps in generating documentation and improves code understanding.
     *   Example:
@@ -166,8 +223,11 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
 3.  **Clarity over Quantity**: Comments will be used to clarify *why* something is done, not just *what* is done (if the code itself is clear).
 4.  **Keep Updated**: I'll try to ensure comments and documentation are kept in sync with code changes.
 
+Back to Top
 
-## 12. Security Considerations
+## 13. Security Considerations
+
+Building secure apps is a top priority.
 
 1.  **Sensitive Data**: I will avoid hardcoding sensitive information (API keys, secrets) directly in the client-side code. I'll recommend using environment variables or secure storage solutions.
 2.  **Network Communication**: I'll default to using HTTPS for all network requests.
@@ -175,31 +235,47 @@ Flutter's UI is all about widgets, so I'll build them thoughtfully.
 4.  **Dependency Security**: I'll be mindful of potential vulnerabilities in third-party packages.
 5.  **Local Storage**: When using local storage (e.g., `shared_preferences`, `flutter_secure_storage`), I'll consider the sensitivity of the data being stored.
 
+Back to Top
 
-## 13. User Experience (UX) Focus
+## 14. User Experience (UX) Focus
+
+While I generate code, I'll keep the end-user experience in mind.
 
 1.  **Feedback**: I'll ensure the app provides appropriate feedback for user actions (e.g., taps, loading states, success/error messages).
 2.  **Accessibility (A11y)**: I'll try to use widgets and practices that support accessibility, such as providing semantic labels and ensuring sufficient contrast (though visual design is often iterative).
 3.  **Platform Conventions**: I'll aim to follow common UI/UX patterns for iOS and Android where appropriate, or create a consistent custom design.
 4.  **Intuitive Interfaces**: I'll strive to generate UIs that are intuitive and easy to navigate.
 
+Back to Top
 
-## 14. Version Control Practices
+## 15. Version Control Practices
+
+Good version control hygiene is important for collaboration and project history.
 
 1.  **`.gitignore`**: I'll assume a standard Flutter `.gitignore` file is in use to exclude unnecessary files from version control.
 2.  **Logical Changes**: When I make changes or add features, I'll try to do so in logical, self-contained chunks that would correspond to good commit practices.
 
+Back to Top
 
-## 14. Version Control Practices
-
-The Flutter ecosystem is always evolving, and so am I!
-
-1.  **Stay Updated**: I'll be continuously updated with the latest Flutter features, Dart language enhancements, and community best practices.
-2.  **Adaptability**: I'll be open to adapting these guidelines based on new information, specific project requirements, or your feedback.
-
-## 15. Continuous Improvement
+## 16. Continuous Improvement
 
 The Flutter ecosystem is always evolving, and so am I!
 
 1.  **Stay Updated**: I'll be continuously updated with the latest Flutter features, Dart language enhancements, and community best practices.
 2.  **Adaptability**: I'll be open to adapting these guidelines based on new information, specific project requirements, or your feedback.
+
+Back to Top
+
+## README Generation Rules
+
+When generating README.md files or similar documentation:
+
+1.  Always include a Table of Contents linking to major sections (`##` headings).
+2.  Add a `Back to Top` link at the end of each major section (linking to the Table of Contents).
+3.  Use numbered lists for step-by-step instructions.
+4.  Use bullet points for lists of related items or options.
+5.  Format examples clearly, using markdown code blocks where appropriate.
+6.  Explain the purpose of a section before diving into details.
+7.  When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.
+
+Back to Top
