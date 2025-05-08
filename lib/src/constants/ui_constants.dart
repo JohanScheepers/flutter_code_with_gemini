@@ -1,99 +1,87 @@
 import 'package:flutter/material.dart';
 
-const kWOWFlexSpacer = Flexible(child: SizedBox.shrink());
-const kWOWCrossAxisFlexSpacer = SizedBox.shrink();
+/// Contains standard UI constants for consistent spacing, padding, radii, etc.
 
-const kVerticalSpacerMini = SizedBox(height: 2.0);
-const kVerticalSpacerSmall = SizedBox(height: 4.0);
-const kVerticalSpacerMedium = SizedBox(height: 8.0);
-const kVerticalSpacerLarge = SizedBox(height: 16.0);
-const kVerticalSpacerExtraLarge = SizedBox(height: 32.0);
-const kVerticalSpacerXXL = SizedBox(height: 64.0);
+// --- Spacing ---
+const double kSpaceXXSmall = 2.0;
+const double kSpaceXSmall = 4.0;
+const double kSpaceSmall = 8.0;
+const double kSpaceSMedium = 12.0;
+const double kSpaceMedium = 16.0;
+const double kSpaceLarge = 24.0;
+const double kSpaceXLarge = 32.0;
+const double kSpaceXXLarge = 48.0;
+const double kSpaceXXXLarge = 64.0;
+const double kSpaceX3Large = 80.0;
+const double kSpaceXX3Large = 96.0;
+const double kSpaceXXX3Large = 128.0;
+const double kSpaceXXXX3Large = 160.0;
 
-const kHorizontalSpacerMini = SizedBox(width: 2.0);
-const kHorizontalSpacerSmall = SizedBox(width: 4.0);
-const kHorizontalSpacerMedium = SizedBox(width: 8.0);
-const kHorizontalSpacerLarge = SizedBox(width: 16.0);
-const kHorizontalSpacerExtraLarge = SizedBox(width: 32.0);
-const kHorizontalSpacerXXL = SizedBox(width: 64.0);
+// --- Padding ---
+const EdgeInsets xsmallPadding = EdgeInsets.all(kSpaceXSmall);
+const EdgeInsets smallPadding = EdgeInsets.all(kSpaceSmall);
+const EdgeInsets mediumPadding = EdgeInsets.all(kSpaceMedium);
+const EdgeInsets largePadding = EdgeInsets.all(kSpaceXLarge);
+const EdgeInsets xLargePadding = EdgeInsets.all(kSpaceXXXLarge);
+const EdgeInsets xxLargePadding = EdgeInsets.all(kSpaceXXX3Large);
 
-const kPagePadding = EdgeInsets.all(16.0);
-const kPagePaddingSmall = EdgeInsets.all(8.0);
+// --- Icon Sizes ---
+const double smallIconSize = kSpaceMedium;
+const double mediumIconSize = kSpaceXLarge;
+const double largeIconSize = kSpaceXXXLarge;
+const double xlargeIconSize = kSpaceX3Large;
+const double x2largeIconSize = kSpaceXX3Large;
 
-const kListViewPadding = EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
-const kListViewPaddingSmall =
-    EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0);
+// --- Custom Sizes ---
+// Miscellaneous custom sizes used in the application.
+const double loadingIconSize = 220;
+const double appBarSize = 60;
 
-const kHorizontalPaddingSmall = EdgeInsets.symmetric(horizontal: 4.0);
-const kHorizontalPaddingMedium = EdgeInsets.symmetric(horizontal: 8.0);
-const kHorizontalPaddingLarge = EdgeInsets.symmetric(horizontal: 16.0);
+// --- General Element Sizes ---
+// Standard sizes for various UI elements.
+const double xsmallSize = kSpaceSmall;
+const double smallSize = kSpaceMedium;
+const double mediumSize = kSpaceXLarge;
+const double largeSize = kSpaceXXXLarge;
+const double xlargeSize = kSpaceX3Large;
+const double x2largeSize = kSpaceXX3Large;
+const double x3largeSize = kSpaceXX3Large; // Corresponds to 96.0
 
-const kVerticalPaddingSmall = EdgeInsets.symmetric(vertical: 4.0);
-const kVerticalPaddingMedium = EdgeInsets.symmetric(vertical: 8.0);
-const kVerticalPaddingLarge = EdgeInsets.symmetric(vertical: 16.0);
+// --- Label Sizes ---
+// Standard sizes for text labels.
+const double xlabelSmallSize = kSpaceXSmall;
+const double labelSmallSize = kSpaceSmall;
+const double labelMediumSize = kSpaceMedium;
+const double labelLargeSize = kSpaceLarge;
 
-const kBorderRadiusSmall = BorderRadius.all(Radius.circular(4.0));
-const kBorderRadiusMedium = BorderRadius.all(Radius.circular(8.0));
-const kBorderRadiusLarge = BorderRadius.all(Radius.circular(16.0));
-const kBorderRadiusExtraLarge = BorderRadius.all(Radius.circular(24.0));
 
-const kInputBorderRadius = BorderRadius.all(Radius.circular(8.0));
+// --- Text Styles ---
+// Predefined text styles for consistent typography.
+const TextStyle headlineLarge = TextStyle(fontSize: kSpaceLarge);
+const TextStyle headlineMedium = TextStyle(fontSize: kSpaceXLarge);
+const TextStyle labelLarge = TextStyle(fontSize: kSpaceLarge);
+const TextStyle labelMedium = TextStyle(fontSize: kSpaceMedium);
 
-const kButtonHeight = 48.0;
-const kButtonHeightSmall = 36.0;
+// --- SizedBox Vertical Gaps ---
+// Predefined SizedBox widgets for vertical spacing.
+const SizedBox xsmallVGap = SizedBox(height: kSpaceSmall);
+const SizedBox xxsmallVGap = SizedBox(height: kSpaceMedium);
+const SizedBox smallVGap = SizedBox(height: kSpaceLarge);
+const SizedBox mediumVGap = SizedBox(height: kSpaceXLarge);
+const SizedBox largeVGap = SizedBox(height: 40);
 
-const kIconSizeSmall = 16.0;
-const kIconSizeMedium = 24.0;
-const kIconSizeLarge = 32.0;
+// --- SizedBox Horizontal Gaps ---
+// Predefined SizedBox widgets for horizontal spacing.
+const SizedBox xxsmallHGap = SizedBox(width: kSpaceSmall);
+const SizedBox xsmallHGap = SizedBox(width: kSpaceMedium);
+const SizedBox smallHGap = SizedBox(width: kSpaceLarge);
+const SizedBox mediumHGap = SizedBox(width: kSpaceXLarge);
+const SizedBox largeHGap = SizedBox(width: 40);
 
-const kAppBarHeight = 56.0;
-
-const kCardElevationDefault = 2.0;
-const kCardElevationLow = 1.0;
-const kCardElevationHigh = 4.0;
-
-const kShortAnimationDuration = Duration(milliseconds: 150);
-const kMediumAnimationDuration = Duration(milliseconds: 300);
-const kLongAnimationDuration = Duration(milliseconds: 500);
-
-/// Common values for spacing and padding.
-/// These can be used directly or as a base for creating more specific constants.
-abstract class AppSpacing {
-  static const double xxs = 2.0;
-  static const double xs = 4.0;
-  static const double s = 8.0;
-  static const double m = 16.0;
-  static const double l = 24.0;
-  static const double xl = 32.0;
-  static const double xxl = 48.0;
-  static const double xxxl = 64.0;
-}
-
-/// Common values for border radius.
-abstract class AppRadius {
-  static const double r4 = 4.0;
-  static const double r8 = 8.0;
-  static const double r12 = 12.0;
-  static const double r16 = 16.0;
-  static const double r24 = 24.0;
-  static const double rFull =
-      9999.0; // For fully rounded corners like in a pill shape
-}
-
-/// Common values for icon sizes.
-abstract class AppIconSizes {
-  static const double s16 = 16.0;
-  static const double s20 = 20.0;
-  static const double s24 = 24.0;
-  static const double s32 = 32.0;
-  static const double s48 = 48.0;
-}
-
-/// Common values for animation durations.
-abstract class AppDurations {
-  static const Duration ms100 = Duration(milliseconds: 100);
-  static const Duration ms150 = Duration(milliseconds: 150);
-  static const Duration ms200 = Duration(milliseconds: 200);
-  static const Duration ms300 = Duration(milliseconds: 300);
-  static const Duration ms500 = Duration(milliseconds: 500);
-}
+// --- Radius Values ---
+// Standard border radius values.
+const double xsmallRadius = kSpaceSMedium;
+const double smallRadius = kSpaceLarge;
+const double mediumRadius = 40;
+const double largeRadius = kSpaceXXXLarge;
+const double xlargeRadius = kSpaceX3Large;

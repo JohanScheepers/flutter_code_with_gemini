@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_code_with_gemini/src/constants/ui_constants.dart'; // Corrected import path
 import 'package:go_router/go_router.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -19,32 +21,32 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const Text(
+        Text(
           'Flutter Code with Gemini',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: headlineLarge.copyWith(fontWeight: FontWeight.bold), // Used headlineLarge (fontSize 24)
         ),
-        const SizedBox(height: 20),
+        xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const FlutterLogo(
-              size: 80,
+            FlutterLogo(
+              size: xlargeIconSize, // Was 80, now xlargeIconSize (80.0)
             ),
-            const SizedBox(width: 20),
+            xsmallHGap, // Was kHorizontalSpacerMedium (16.0), now xsmallHGap (16.0)
             Image.asset(
               'assets/images/gemini_logo.png',
-              height: 80,
+              height: xlargeIconSize, // Was 80, now xlargeIconSize (80.0)
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
         ElevatedButton(
           onPressed: () {
             context.push('/rules');
           },
           child: const Text('View App & README Rules'),
         ),
-        const SizedBox(height: 20),
+        xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
         ElevatedButton(
           onPressed: () {
             context.push('/github');
@@ -58,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildNarrowLayout(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16.0), // Standard padding for narrow view
+        padding: mediumPadding, // Was kPagePadding (16.0), now mediumPadding (16.0)
         child: _buildContent(context),
       ),
     );
@@ -67,8 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildWideLayout(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 64.0, vertical: 32.0), // More horizontal padding
+        padding: EdgeInsets.symmetric( // horizontal: 64.0, vertical: 32.0
+            horizontal: xLargePadding.left, vertical: largePadding.top),
         child: ConstrainedBox(
           constraints:
               const BoxConstraints(maxWidth: 700), // Max width for content
