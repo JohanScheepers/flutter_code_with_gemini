@@ -18,70 +18,107 @@ const double kSpaceXXX3Large = 128.0;
 const double kSpaceXXXX3Large = 160.0;
 
 // --- Padding ---
-const EdgeInsets xsmallPadding = EdgeInsets.all(kSpaceXSmall);
-const EdgeInsets smallPadding = EdgeInsets.all(kSpaceSmall);
-const EdgeInsets mediumPadding = EdgeInsets.all(kSpaceMedium);
-const EdgeInsets largePadding = EdgeInsets.all(kSpaceXLarge);
-const EdgeInsets xLargePadding = EdgeInsets.all(kSpaceXXXLarge);
-const EdgeInsets xxLargePadding = EdgeInsets.all(kSpaceXXX3Large);
+const EdgeInsets kXSmallPadding = EdgeInsets.all(kSpaceXSmall);
+const EdgeInsets kSmallPadding = EdgeInsets.all(kSpaceSmall);
+const EdgeInsets kMediumPadding = EdgeInsets.all(kSpaceMedium);
+const EdgeInsets kXLargePadding = EdgeInsets.all(kSpaceXLarge);
+const EdgeInsets kXXLargePadding = EdgeInsets.all(kSpaceXXLarge);
+const EdgeInsets kXXXLargePadding = EdgeInsets.all(kSpaceXXXLarge);
+const EdgeInsets kX3LargePadding = EdgeInsets.all(kSpaceX3Large);
+const EdgeInsets kXXX3LargePadding = EdgeInsets.all(kSpaceXXX3Large);
 
 // --- Icon Sizes ---
-const double smallIconSize = kSpaceMedium;
-const double mediumIconSize = kSpaceXLarge;
-const double largeIconSize = kSpaceXXXLarge;
-const double xlargeIconSize = kSpaceX3Large;
-const double x2largeIconSize = kSpaceXX3Large;
+const double kXXSmallIconSize = kSpaceXXSmall;
+const double kXSmallIconSize = kSpaceXSmall;
+const double kSmallIconSize = kSpaceSmall;
+const double kSMediumIconSize = kSpaceSMedium;
+const double kMediumIconSize = kSpaceMedium;
+const double kLargeIconSize = kSpaceLarge;
+const double kXLargeIconSize = kSpaceXLarge;
+const double kXXLargeIconSize = kSpaceXXLarge;
+const double kXXXLargeIconSize = kSpaceXXXLarge;
+const double kX3LargeIconSize = kSpaceX3Large; // Renamed from kx3LargeIconSize
+const double kXX3LargeIconSize = kSpaceXX3Large;
+const double kXXX3LargeIconSize = kSpaceXXX3Large;
+const double kXXXX3LargeIconSize = kSpaceXXXX3Large;
 
 // --- Custom Sizes ---
 // Miscellaneous custom sizes used in the application.
-const double loadingIconSize = 220;
-const double appBarSize = 60;
-
-// --- General Element Sizes ---
-// Standard sizes for various UI elements.
-const double xsmallSize = kSpaceSmall;
-const double smallSize = kSpaceMedium;
-const double mediumSize = kSpaceXLarge;
-const double largeSize = kSpaceXXXLarge;
-const double xlargeSize = kSpaceX3Large;
-const double x2largeSize = kSpaceXX3Large;
-const double x3largeSize = kSpaceXX3Large; // Corresponds to 96.0
+const double loadingIconSize =
+    220; // This value is custom and not derived from kSpace
+const double appBarSize =
+    60; // This value is custom and not derived from kSpace
 
 // --- Label Sizes ---
 // Standard sizes for text labels.
-const double xlabelSmallSize = kSpaceXSmall;
-const double labelSmallSize = kSpaceSmall;
-const double labelMediumSize = kSpaceMedium;
-const double labelLargeSize = kSpaceLarge;
-
+const double kXSmallLabelSize = kSpaceXSmall;
+const double kSmallLabelSize = kSpaceSmall;
+const double kMediumLabelSize = kSpaceMedium;
+const double kLargeLabelSize = kSpaceLarge;
+const double kSMediumLabelSize = kSpaceSMedium;
+const double kXLargeLabelSize = kSpaceXLarge;
+const double kXXLargeLabelSize = kSpaceXXLarge;
+const double kXXXLargeLabelSize = kSpaceXXXLarge;
+const double kX3LargeLabelSize = kSpaceX3Large;
+const double kXX3LargeLabelSize = kSpaceXX3Large;
+const double kXXX3LargeLabelSize = kSpaceXXX3Large;
+const double kXXXX3LargeLabelSize = kSpaceXXXX3Large;
 
 // --- Text Styles ---
 // Predefined text styles for consistent typography.
-const TextStyle headlineLarge = TextStyle(fontSize: kSpaceLarge);
-const TextStyle headlineMedium = TextStyle(fontSize: kSpaceXLarge);
-const TextStyle labelLarge = TextStyle(fontSize: kSpaceLarge);
-const TextStyle labelMedium = TextStyle(fontSize: kSpaceMedium);
+const TextStyle kLargeHeadline = TextStyle(fontSize: kSpaceLarge);
+const TextStyle kMediumHeadline = TextStyle(fontSize: kSpaceXLarge);
+const TextStyle kLargeLabel = TextStyle(fontSize: kSpaceLarge);
+const TextStyle kMediumLabel = TextStyle(fontSize: kSpaceMedium);
 
 // --- SizedBox Vertical Gaps ---
 // Predefined SizedBox widgets for vertical spacing.
-const SizedBox xsmallVGap = SizedBox(height: kSpaceSmall);
-const SizedBox xxsmallVGap = SizedBox(height: kSpaceMedium);
-const SizedBox smallVGap = SizedBox(height: kSpaceLarge);
-const SizedBox mediumVGap = SizedBox(height: kSpaceXLarge);
-const SizedBox largeVGap = SizedBox(height: 40);
+const SizedBox kXXSmallVGap = SizedBox(height: kSpaceXXSmall);
+const SizedBox kXSmallVGap = SizedBox(height: kSpaceXSmall);
+const SizedBox kSmallVGap = SizedBox(height: kSpaceSmall);
+const SizedBox kSMediumVGap = SizedBox(height: kSpaceSMedium);
+const SizedBox kMediumVGap = SizedBox(height: kSpaceMedium);
+const SizedBox kLargeVGap = SizedBox(height: kSpaceLarge);
+const SizedBox kXLargeVGap = SizedBox(height: kSpaceXLarge);
+const SizedBox kXXLargeVGap = SizedBox(height: kSpaceXXLarge);
+const SizedBox kXXXLargeVGap = SizedBox(height: kSpaceXXXLarge);
+const SizedBox kX3LargeVGap = SizedBox(height: kSpaceX3Large);
+const SizedBox kXX3LargeVGap = SizedBox(height: kSpaceXX3Large);
+const SizedBox kXXX3LargeVGap = SizedBox(height: kSpaceXXX3Large);
+const SizedBox kXXXX3LargeVGap = SizedBox(height: kSpaceXXXX3Large);
+const SizedBox kCustomVGap = SizedBox(height: 40); // Custom 40px gap
 
 // --- SizedBox Horizontal Gaps ---
 // Predefined SizedBox widgets for horizontal spacing.
-const SizedBox xxsmallHGap = SizedBox(width: kSpaceSmall);
-const SizedBox xsmallHGap = SizedBox(width: kSpaceMedium);
-const SizedBox smallHGap = SizedBox(width: kSpaceLarge);
-const SizedBox mediumHGap = SizedBox(width: kSpaceXLarge);
-const SizedBox largeHGap = SizedBox(width: 40);
+const SizedBox kXXSmallHGap = SizedBox(width: kSpaceXXSmall);
+const SizedBox kXSmallHGap = SizedBox(width: kSpaceXSmall);
+const SizedBox kSmallHGap = SizedBox(width: kSpaceSmall);
+const SizedBox kSMediumHGap = SizedBox(width: kSpaceSMedium);
+const SizedBox kMediumHGap = SizedBox(width: kSpaceMedium);
+const SizedBox kLargeHGap = SizedBox(width: kSpaceLarge);
+const SizedBox kXLargeHGap = SizedBox(width: kSpaceXLarge);
+const SizedBox kXXLargeHGap = SizedBox(width: kSpaceXXLarge);
+const SizedBox kXXXLargeHGap = SizedBox(width: kSpaceXXXLarge);
+const SizedBox kX3LargeHGap = SizedBox(width: kSpaceX3Large);
+const SizedBox kXX3LargeHGap = SizedBox(width: kSpaceXX3Large);
+const SizedBox kXXX3LargeHGap = SizedBox(width: kSpaceXXX3Large);
+const SizedBox kXXXX3LargeHGap = SizedBox(width: kSpaceXXXX3Large);
+const SizedBox kCustomHGap = SizedBox(width: 40); // Custom 40px gap
 
 // --- Radius Values ---
 // Standard border radius values.
-const double xsmallRadius = kSpaceSMedium;
-const double smallRadius = kSpaceLarge;
-const double mediumRadius = 40;
-const double largeRadius = kSpaceXXXLarge;
-const double xlargeRadius = kSpaceX3Large;
+const double kXXSmallRadius = kSpaceXXSmall;
+const double kXSmallRadius = kSpaceXSmall;
+const double kSmallRadius = kSpaceSmall;
+const double kSMediumRadius = kSpaceSMedium; // Was kMediumRadius
+const double kMediumRadius = kSpaceMedium;
+const double kLargeRadius = kSpaceLarge;
+const double kXLargeRadius = kSpaceXLarge;
+const double kXXLargeRadius = kSpaceXXLarge;
+const double kXXXLargeRadius = kSpaceXXXLarge;
+const double kX3LargeRadius = kSpaceX3Large;
+const double kXX3LargeRadius = kSpaceXX3Large;
+const double kXXX3LargeRadius = kSpaceXXX3Large;
+const double kXXXX3LargeRadius = kSpaceXXXX3Large;
+const double kCustomRadius40 =
+    40.0; // Renamed from mediumRadius, as 40.0 doesn't map to a kSpace constant

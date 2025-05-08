@@ -95,20 +95,25 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
 
   Widget _buildStatRow(IconData icon, String label, dynamic value) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: smallPadding.top), // Was kVerticalPaddingSmall (symmetric vertical 8.0)
+      padding: EdgeInsets.symmetric(
+          vertical: kSmallPadding
+              .top), // Was kVerticalPaddingSmall (symmetric vertical 8.0)
       child: Row(
         children: [
           Icon(icon,
               color: Theme.of(context).colorScheme.primary,
-              size: smallIconSize + xlabelSmallSize), // Was kIconSizeSmall + 2 (20.0), now smallIconSize (16) + xlabelSmallSize (4) = 20.0
-          xxsmallHGap, // Was kHorizontalSpacerSmall (8.0), now xxsmallHGap (8.0)
+              size: kMediumIconSize +
+                  kXSmallLabelSize), // Was kIconSizeSmall + 2 (20.0), now smallIconSize (16) + xlabelSmallSize (4) = 20.0
+          kSmallHGap, // Was kHorizontalSpacerSmall (8.0), now xxsmallHGap (8.0)
           Flexible(
             // Wrap label text
             fit: FlexFit
                 .tight, // Ensure label takes available space before Spacer
             child: Text(
               '$label:',
-              style: labelMedium.copyWith(fontWeight: FontWeight.w500), // Used labelMedium (fontSize 16)
+              style: kMediumLabel.copyWith(
+                  fontWeight:
+                      FontWeight.w500), // Used labelMedium (fontSize 16)
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -117,7 +122,7 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
             // Wrap value text
             child: Text(
               value?.toString() ?? 'N/A',
-              style: labelMedium, // Used labelMedium (fontSize 16)
+              style: kMediumLabel, // Used labelMedium (fontSize 16)
               textAlign: TextAlign.end,
               overflow: TextOverflow.ellipsis,
             ),
@@ -147,20 +152,26 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
     } else if (_errorMessage != null) {
       return Center(
         child: Padding(
-          padding: smallPadding, // Was kCardPadding (8.0), now smallPadding (8.0)
+          padding:
+              kSmallPadding, // Was kCardPadding (8.0), now smallPadding (8.0)
           child: Text(
             'Error fetching stats: $_errorMessage',
-            style: labelMedium.copyWith(color: Colors.red), // Used labelMedium (fontSize 16)
+            style: kMediumLabel.copyWith(
+                color: Colors.red), // Used labelMedium (fontSize 16)
             textAlign: TextAlign.center,
           ),
         ),
       );
     } else if (_repoStats != null) {
       return Card(
-        elevation: 2.0, // No direct 2.0 elevation in "Use these" section. Kept literal.
-        margin: EdgeInsets.symmetric(vertical: smallPadding.top), // Was kVerticalPaddingSmall (symmetric vertical 8.0)
+        elevation:
+            2.0, // No direct 2.0 elevation in "Use these" section. Kept literal.
+        margin: EdgeInsets.symmetric(
+            vertical: kSmallPadding
+                .top), // Was kVerticalPaddingSmall (symmetric vertical 8.0)
         child: Padding(
-          padding: mediumPadding, // Was kPagePadding (16.0), now mediumPadding (16.0)
+          padding:
+              kMediumPadding, // Was kPagePadding (16.0), now mediumPadding (16.0)
           child: SingleChildScrollView(
             // Allow stats list to scroll if too long
             child: Column(
@@ -202,27 +213,35 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: mediumPadding.left), // Was kHorizontalPaddingMedium (symmetric horizontal 16.0)
+            padding: EdgeInsets.symmetric(
+                horizontal: kMediumPadding
+                    .left), // Was kHorizontalPaddingMedium (symmetric horizontal 16.0)
             child: TextField(
               controller: _ownerController,
               decoration: InputDecoration(
                 labelText: 'GitHub Owner',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(smallRadius)), // Was kButtonBorderRadius (circular 24.0), now smallRadius (24.0)
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                        kLargeRadius)), // Was kButtonBorderRadius (circular 24.0), now smallRadius (24.0)
               ),
             ),
           ),
-          xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+          kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: mediumPadding.left), // Was kHorizontalPaddingMedium (symmetric horizontal 16.0)
+            padding: EdgeInsets.symmetric(
+                horizontal: kMediumPadding
+                    .left), // Was kHorizontalPaddingMedium (symmetric horizontal 16.0)
             child: TextField(
               controller: _repoController,
               decoration: InputDecoration(
                 labelText: 'GitHub Repository Name',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(smallRadius)), // Was kButtonBorderRadius (circular 24.0), now smallRadius (24.0)
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                        kLargeRadius)), // Was kButtonBorderRadius (circular 24.0), now smallRadius (24.0)
               ),
             ),
           ),
-          xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+          kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
           ElevatedButton.icon(
             icon: const Icon(Icons.refresh),
             onPressed: () {
@@ -231,20 +250,25 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
             },
             label: const Text('Fetch Repository Stats'),
           ),
-          xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+          kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
           Text(
             'Current Project: ${_repoStats?['full_name'] ?? '${_ownerController.text}/${_repoController.text}'}',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold), // No direct 20.0 font size in "Use these". Kept literal.
+            style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight
+                    .bold), // No direct 20.0 font size in "Use these". Kept literal.
           ),
-          smallVGap, // Was kVerticalSpacerLarge (24.0), now smallVGap (24.0)
+          kLargeVGap, // Was kVerticalSpacerLarge (24.0), now smallVGap (24.0)
           ElevatedButton.icon(
             icon: const Icon(Icons.open_in_browser),
             onPressed: _launchGithubUrl,
             label: const Text('Open Project on GitHub'),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
-                  vertical: xsmallRadius, horizontal: labelLargeSize), // vertical 12 (xsmallRadius), horizontal 24 (labelLargeSize)
+                  vertical: kMediumRadius,
+                  horizontal:
+                      kLargeLabelSize), // vertical 12 (xsmallRadius), horizontal 24 (labelLargeSize)
             ),
           ),
         ],
@@ -256,13 +280,14 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
     // Wrap the main Column in SingleChildScrollView for vertical scrolling
     return SingleChildScrollView(
       child: Padding(
-        padding: mediumPadding, // Was kPagePadding (16.0), now mediumPadding (16.0)
+        padding:
+            kMediumPadding, // Was kPagePadding (16.0), now mediumPadding (16.0)
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _buildProjectInfoAndButtonColumn(),
-            xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+            kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
             _buildStatsContentWidget(),
           ],
         ),
@@ -272,7 +297,8 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
 
   Widget _buildWideLayout(BuildContext context) {
     return Padding(
-      padding: largePadding, // Was EdgeInsets.all(kSpaceXLarge) (32.0), now largePadding (32.0)
+      padding:
+          kXLargePadding, // Was EdgeInsets.all(kSpaceXLarge) (32.0), now largePadding (32.0)
       child: Center(
         // Center the content if it doesn't fill the screen
         child: ConstrainedBox(
@@ -287,7 +313,7 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
                 flex: 2,
                 child: _buildProjectInfoAndButtonColumn(),
               ),
-              mediumHGap, // Was kHorizontalSpacerXLarge (32.0), now mediumHGap (32.0)
+              kXLargeHGap, // Was kHorizontalSpacerXLarge (32.0), now mediumHGap (32.0)
               Expanded(
                 flex: 3,
                 child: _buildStatsContentWidget(),

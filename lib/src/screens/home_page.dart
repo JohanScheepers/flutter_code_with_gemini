@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_code_with_gemini/src/constants/ui_constants.dart'; // Corrected import path
 import 'package:go_router/go_router.dart';
 
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -23,30 +22,31 @@ class _MyHomePageState extends State<MyHomePage> {
       children: <Widget>[
         Text(
           'Flutter Code with Gemini',
-          style: headlineLarge.copyWith(fontWeight: FontWeight.bold), // Used headlineLarge (fontSize 24)
+          style: kLargeHeadline.copyWith(
+              fontWeight: FontWeight.bold), // Used headlineLarge (fontSize 24)
         ),
-        xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+        kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FlutterLogo(
-              size: xlargeIconSize, // Was 80, now xlargeIconSize (80.0)
+              size: kX3LargeIconSize, // Was 80, now xlargeIconSize (80.0)
             ),
-            xsmallHGap, // Was kHorizontalSpacerMedium (16.0), now xsmallHGap (16.0)
+            kMediumHGap, // Was kHorizontalSpacerMedium (16.0), now xsmallHGap (16.0)
             Image.asset(
               'assets/images/gemini_logo.png',
-              height: xlargeIconSize, // Was 80, now xlargeIconSize (80.0)
+              height: kX3LargeIconSize, // Was 80, now xlargeIconSize (80.0)
             ),
           ],
         ),
-        xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+        kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
         ElevatedButton(
           onPressed: () {
             context.push('/rules');
           },
           child: const Text('View App & README Rules'),
         ),
-        xxsmallVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+        kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
         ElevatedButton(
           onPressed: () {
             context.push('/github');
@@ -60,7 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildNarrowLayout(BuildContext context) {
     return Center(
       child: Padding(
-        padding: mediumPadding, // Was kPagePadding (16.0), now mediumPadding (16.0)
+        padding:
+            kMediumPadding, // Was kPagePadding (16.0), now mediumPadding (16.0)
         child: _buildContent(context),
       ),
     );
@@ -69,8 +70,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildWideLayout(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric( // horizontal: 64.0, vertical: 32.0
-            horizontal: xLargePadding.left, vertical: largePadding.top),
+        padding: EdgeInsets.symmetric(
+            // horizontal: 64.0, vertical: 32.0
+            horizontal: kXXXLargePadding.left,
+            vertical: kXLargePadding.top),
         child: ConstrainedBox(
           constraints:
               const BoxConstraints(maxWidth: 700), // Max width for content
