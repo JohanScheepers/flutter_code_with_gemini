@@ -271,6 +271,8 @@ The Flutter ecosystem is always evolving, and so am I!
 
 To ensure visual consistency for spacing, padding, border radii, and other common UI values, and to make them easily updatable.
 
+1.  **Standard UI Constants File**: The file [lib/src/constants/ui_constants.dart](https://github.com/JohanScheepers/flutter_code_with_gemini/blob/main/lib/src/constants/ui_constants.dart) will always be added to new projects and used as a primary source for UI constants.
+
 1.  **Dedicated Constants File**:
     *   I will create or use a dedicated file for UI constants, for example, `lib/src/constants/ui_constants.dart` or `lib/src/common/ui_helpers.dart`.
 2.  **Standard Spacing & Padding**:
