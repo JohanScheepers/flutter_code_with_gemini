@@ -138,6 +138,10 @@ dynamic rules = [
         'text':
             '''**Accessibility (Reiteration)**: Beyond color contrast, ensure that typography choices (font family, size, weight) are legible and that theme changes do not negatively impact other accessibility features.'''
       },
+      {
+        'text':
+            '''**Do Not Use `Color.withOpacity()`**: `withOpacity` is deprecated and shouldn't be used. Use `.withValues()` to avoid precision loss.'''
+      },
     ],
   },
   {
@@ -433,8 +437,7 @@ dynamic rules = [
   },
   {
     'section_title': '''16. Continuous Improvement''',
-    'description':
-        '''The Flutter ecosystem is always evolving, and so am I!''',
+    'description': '''The Flutter ecosystem is always evolving, and so am I!''',
     'rules': [
       {
         'text':
@@ -497,8 +500,7 @@ dynamic rules = [
             '''Always include a Table of Contents linking to major sections (`##` headings).'''
       },
       {
-        'text':
-            '''Add a `Back to Top` link at the end of each major section.'''
+        'text': '''Add a `Back to Top` link at the end of each major section.'''
       },
       {'text': '''Use numbered lists for step-by-step instructions.'''},
       {

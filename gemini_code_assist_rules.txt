@@ -91,6 +91,8 @@ A consistent visual appearance enhances the user experience.
 
 **Accessibility (Reiteration)**: Beyond color contrast, ensure that typography choices (font family, size, weight) are legible and that theme changes do not negatively impact other accessibility features.
 
+**Do Not Use `Color.withOpacity()`**: `withOpacity` is deprecated and shouldn't be used. Use `.withValues()` to avoid precision loss.
+
 ----------------------------------------
 
 5. State Management
@@ -347,4 +349,4 @@ Format examples clearly, using markdown code blocks where appropriate.
 
 Explain the purpose of a section before diving into details.
 
-When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.
+When providing setup instructions, include steps for both VS Code and Android Studio/IntelliJ IDEA if relevant.gemini_code_assist_rules

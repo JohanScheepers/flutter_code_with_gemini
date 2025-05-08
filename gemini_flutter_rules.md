@@ -95,7 +95,8 @@ A consistent visual appearance enhances the user experience.
 5.  **Custom Extensions**: For app-specific styling that doesn't fit neatly into standard `ThemeData` properties (e.g., custom button styles, specific spacing values), use `ThemeExtension<T>` for better organization and type-safe access.
 6.  **Consistency**: Apply all theming elements (colors, typography, component styles, spacing) consistently across the entire application to create a cohesive user experience.
 7.  **Accessibility (Reiteration)**: Beyond color contrast, ensure that typography choices (font family, size, weight) are legible and that theme changes do not negatively impact other accessibility features.
-
+method 
+8.  **Do Not Use `Color.withOpacity()`**: `withOpacity` is deprecated and shouldn't be used. Use `.withValues()` to avoid precision loss.
 [Back to Top](#table-of-contents)
 
 ## 5. State Management
