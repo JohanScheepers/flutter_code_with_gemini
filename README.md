@@ -1,6 +1,6 @@
 # flutter_code_with_gemini
 
-![Flutter Code with Gemini App](assets/images/flutter_code_with_gemini.PNG)
+![Flutter Code with Gemini App](assets/gif/flutter_code_with_gemini.gif)
 
 This project leverages Google's Gemini Code Assist. Learn more about writing code with Gemini from the [official documentation](https://cloud.google.com/gemini/docs/codeassist/write-code-gemini).
 
