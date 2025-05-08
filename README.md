@@ -50,4 +50,9 @@ After adding rules in the Rules settings, Gemini Code Assist considers the rule 
 
 To remove the rule, delete the content from the Gemini Code Assist: Rules.
 
+
+For detailed coding and project guidelines, please refer to the [Gemini Code Assist Rules](./gemini_code_assist_rules.txt).
+
+
+
 [Back to Top](#flutter_code_with_gemini)
