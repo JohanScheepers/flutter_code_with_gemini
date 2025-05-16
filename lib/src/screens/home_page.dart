@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_code_with_gemini/src/constants/ui_constants.dart'; // Corrected import path
+import 'package:flutter_code_with_gemini/src/constants/ui_constants.dart';
+import 'package:flutter_code_with_gemini/main.dart';
 import 'package:go_router/go_router.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,41 +13,53 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const double kBreakpoint = 600.0; // Breakpoint for switching layouts
+  static const double kBreakpoint = 600.0;
 
+  @override
+  void initState() {
+    super.initState();
+    // Listen to theme changes to rebuild the icon.
+    themeNotifier.addListener(_onThemeModeChanged);
+  }
+
+  @override
+  void dispose() {
+    themeNotifier.removeListener(_onThemeModeChanged);
+    super.dispose();
+  }
+
+  void _onThemeModeChanged() {
+    if (mounted) setState(() {});
+  }
+
+  /// This Column contains all the main content of your home page.
+  /// It's extracted here to be reused by both narrow and wide layouts.
   Widget _buildContent(BuildContext context) {
-    // This Column contains all the main content of your home page.
-    // It's extracted here to be reused by both narrow and wide layouts.
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
           'Flutter Code with Gemini',
-          style: kLargeHeadline.copyWith(
-              fontWeight: FontWeight.bold), // Used headlineLarge (fontSize 24)
+          style: kLargeHeadline.copyWith(fontWeight: FontWeight.bold),
         ),
-        kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+        kMediumVGap,
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FlutterLogo(
-              size: kX3LargeIconSize, // Was 80, now xlargeIconSize (80.0)
-            ),
-            kMediumHGap, // Was kHorizontalSpacerMedium (16.0), now xsmallHGap (16.0)
-            Image.asset(
-              'assets/images/gemini_logo.png',
-              height: kX3LargeIconSize, // Was 80, now xlargeIconSize (80.0)
-            ),
+            FlutterLogo(size: kX3LargeIconSize),
+            kMediumHGap,
+            Image.asset('assets/images/gemini_logo.png',
+                height: kX3LargeIconSize),
           ],
         ),
-        kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+        kMediumVGap,
         ElevatedButton(
           onPressed: () {
             context.push('/rules');
           },
           child: const Text('View App & README Rules'),
         ),
-        kMediumVGap, // Was kVerticalSpacerMedium (16.0), now xxsmallVGap (16.0)
+        kMediumVGap,
         ElevatedButton(
           onPressed: () {
             context.push('/github');
@@ -60,8 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildNarrowLayout(BuildContext context) {
     return Center(
       child: Padding(
-        padding:
-            kMediumPadding, // Was kPagePadding (16.0), now mediumPadding (16.0)
+        padding: kMediumPadding,
         child: _buildContent(context),
       ),
     );
@@ -71,9 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(
-            // horizontal: 64.0, vertical: 32.0
-            horizontal: kXXXLargePadding.left,
-            vertical: kXLargePadding.top),
+            horizontal: kXXXLargePadding.left, vertical: kXLargePadding.top),
         child: ConstrainedBox(
           constraints:
               const BoxConstraints(maxWidth: 700), // Max width for content
@@ -89,6 +99,35 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          ValueListenableBuilder<ThemeMode>(
+            valueListenable: themeNotifier,
+            builder: (_, ThemeMode currentMode, __) {
+              bool isCurrentlyDark;
+              if (currentMode == ThemeMode.system) {
+                isCurrentlyDark =
+                    MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+              } else {
+                isCurrentlyDark = currentMode == ThemeMode.dark;
+              }
+              return IconButton(
+                icon: Icon(
+                  isCurrentlyDark ? Icons.light_mode : Icons.dark_mode,
+                ),
+                tooltip: isCurrentlyDark
+                    ? 'Switch to Light Mode'
+                    : 'Switch to Dark Mode',
+                onPressed: () {
+                  if (isCurrentlyDark) {
+                    themeNotifier.value = ThemeMode.light;
+                  } else {
+                    themeNotifier.value = ThemeMode.dark;
+                  }
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
