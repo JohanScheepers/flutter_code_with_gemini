@@ -1,6 +1,12 @@
 /// Contains the rules extracted from gemini_code_assist_rules.txt.
 /// This data can be used by tools or other parts of an application.
 /// to understand and apply the defined Flutter development guidelines.
+
+var err = "err";
+var Counter = "Counter";
+var count = "count";
+var user = "user.name";
+
 dynamic rules = [
   {
     'section_title': '''1. Project Setup & Structure''',
@@ -30,8 +36,12 @@ dynamic rules = [
   {
     'section_title': '''2. Coding Standards & Style''',
     'description':
-        '''Effective Dart: I will adhere to the guidelines outlined in Effective Dart.''',
+        '''''', // Corrected: No separate description line before the first rule.
     'rules': [
+      {
+        'text':
+            '''Effective Dart: I will adhere to the guidelines outlined in Effective Dart.''' // Corrected: This is the first rule.
+      },
       {
         'text':
             '''2.1 Linting: I'll use `flutter analyze` and strive to eliminate all warnings and errors. I'll assume a standard set of linting rules (e.g., from the `lints` or `flutter_lints` package).'''
@@ -55,7 +65,7 @@ dynamic rules = [
   },
   {
     'section_title': '''3. Widget Design & Composition''',
-    'description': '''''', // No separate description line in the .txt for this section
+    'description': '''''',
     'rules': [
       {
         'text':
@@ -142,20 +152,234 @@ dynamic rules = [
   {
     'section_title': '''5. State Management''',
     'description':
-        '''Managing state effectively is key to a robust Flutter app, I will always use Riverpod.''',
+        '''Riverpod will be the exclusive state management solution. These rules are based on Riverpod 2.0+ and its best practices, including the use of `riverpod_generator`.''',
     'rules': [
       {
-        'text':
-            '''5.1 Clear State Flow: The flow of data and state changes will be designed to be predictable and easy to trace.'''
+        'text': '''5.1 Core Principles & Setup:
+    *   **Compile-Safety**: Prioritize code structures that allow Riverpod to catch errors at compile-time. This is greatly aided by `riverpod_generator`.
+    *   **Immutability**: For state managed by Notifiers, always treat state as immutable. Updates should produce new state instances.
+        Example (State Class):
+        ```dart
+        // In your state class
+        class CounterState {
+          final int count;
+          CounterState(this.count);
+
+          CounterState copyWith({int? count}) {
+            return CounterState(count ?? this.count);
+          }
+        }
+        ```
+    *   **Decoupling**: Keep UI widgets separate from business logic. Providers should encapsulate business logic or state, and widgets should consume them.
+    *   **ProviderScope**: Ensure the root of your application is wrapped with `ProviderScope`.
+        ```dart
+        void main() {
+          runApp(
+            ProviderScope(
+              child: MyApp(),
+            ),
+          );
+        }
+        ```'''
       },
       {
         'text':
-            '''5.2 Scoped State: I'll aim to keep state as localized as possible, providing it only to the widgets that need it.'''
+            '''5.2 Provider Selection and Granularity (with `riverpod_generator`):
+    *   **Utilize `riverpod_generator`**: Strongly recommend using `riverpod_generator` and the `@riverpod` or `@Riverpod(keepAlive: ..., dependencies: ...)` annotations. This significantly reduces boilerplate and improves type safety.
+        Example (Simple Provider):
+        ```dart
+        // lib/src/features/auth/application/auth_service.dart
+        import 'package:riverpod_annotation/riverpod_annotation.dart';
+        part 'auth_service.g.dart'; // Generated file
+
+        class AuthService {
+          Future<String?> signIn(String email, String password) async { /* ... */ return null; }
+        }
+
+        @riverpod // Creates authServiceProvider
+        AuthService authService(AuthServiceRef ref) {
+          return AuthService();
+        }
+        ```
+    *   **Appropriate Provider Type (Implicit with Generator)**: The generator often infers the best provider type.
+        *   `@riverpod` on a function returning a value: `Provider` or `FutureProvider` (if async).
+        *   `@riverpod` on a class extending `Notifier`: `NotifierProvider`.
+        *   `@riverpod` on a class extending `AsyncNotifier`: `AsyncNotifierProvider`.
+        *   `@riverpod` on a class extending `StreamNotifier`: `StreamNotifierProvider`.
+    *   **Granularity**: Create small, focused providers. Each provider should manage a single piece of state or a specific service/repository.
+        Example (Notifier for a counter):
+        ```dart
+        // lib/src/features/counter/application/counter_notifier.dart
+        import 'package:riverpod_annotation/riverpod_annotation.dart';
+        part 'counter_notifier.g.dart';
+        
+        @riverpod // Creates counterProvider
+        class Counter extends _$Counter { // Generator creates _$Counter
+          @override
+          int build() => 0; // Initial state
+
+          void increment() => state++;
+          void decrement() => state--;
+        }
+        ```'''
       },
       {
-        'text':
-            '''5.3 Immutability: When using more advanced state management, I'll often favor immutable state objects to ensure predictability and simplify debugging.'''
+        'text': '''5.3 Provider Interaction in UI (Widgets):
+    *   **`ConsumerWidget` or `HookConsumerWidget`**: Widgets that need to listen to providers should extend `ConsumerWidget` (or `HookConsumerWidget` if using `flutter_hooks`).
+    *   **`ref.watch`**: Use in widget `build` methods to reactively listen to a provider's state. The widget will rebuild when the watched state changes.
+        ```dart
+        class CounterText extends ConsumerWidget {
+          @override
+          Widget build(BuildContext context, WidgetRef ref) {
+            final count = ref.watch(counterProvider); // Assuming counterProvider from above
+            return Text('Count: $count');
+          }
+        }
+        ```
+    *   **`ref.read`**: Use for one-time reads of a provider's state, typically within event handlers (e.g., `onPressed`).
+        ```dart
+        ElevatedButton(
+          onPressed: () {
+            ref.read(counterProvider.notifier).increment();
+          },
+          child: Text('Increment'),
+        )
+        ```
+    *   **`ref.listen`**: Use to perform side-effects in response to state changes (e.g., showing a SnackBar, navigating).
+        ```dart
+        ref.listen<AsyncValue<String?>>(authServiceProvider.select((s) => s.user), (previous, next) {
+          if (next is AsyncError) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString())));
+          }
+        });
+        ```'''
       },
+      {
+        'text': '''5.4 Provider Interaction (Provider-to-Provider):
+    *   Providers can depend on other providers using `ref.watch` or `ref.read` within their `build` method (for generated providers) or creation function.
+        Example (A provider depending on AuthService):
+        ```dart
+        // lib/src/features/user/application/user_repository.dart
+        import 'package:riverpod_annotation/riverpod_annotation.dart';
+        import '../auth/auth_service.dart'; // Assuming auth_service.dart
+        part 'user_repository.g.dart';
+
+        class UserRepository {
+          UserRepository(this._authService);
+          final AuthService _authService;
+          // ... methods to fetch user data using _authService token
+        }
+
+        @riverpod
+        UserRepository userRepository(UserRepositoryRef ref) {
+          final authService = ref.watch(authServiceProvider);
+          return UserRepository(authService);
+        }
+        ```'''
+      },
+      {
+        'text': '''5.5 Provider Modifiers (with `riverpod_generator`):
+    *   **`.autoDispose` (default with generator unless `keepAlive = true`)**: State is disposed of when no longer listened to. Control with `@Riverpod(keepAlive: true)` if needed.
+    *   **`.family` (achieved by passing arguments to generated providers)**: For parameterized providers.
+        Example (Family Provider):
+        ```dart
+        // lib/src/features/todos/application/todo_list_provider.dart
+        import 'package:riverpod_annotation/riverpod_annotation.dart';
+        part 'todo_list_provider.g.dart';
+
+        class Todo { /* ... */ }
+
+        @riverpod
+        Future<Todo> todoItem(TodoItemRef ref, int todoId) async {
+          // Fetch todo item by id
+          return Todo(/* ... */);
+        }
+        // Usage in widget: ref.watch(todoItemProvider(someId))
+        ```'''
+      },
+      {
+        'text': '''5.6 Asynchronous State Handling:
+    *   **`AsyncValue<T>`**: When working with providers that return `Future` or `Stream` (e.g., `AsyncNotifierProvider`, or `@riverpod` functions returning `Future`), the state will be `AsyncValue<T>`.
+    *   **`AsyncValue.when()`**: Use this in the UI to gracefully handle `data`, `loading`, and `error` states.
+        ```dart
+        class UserProfileWidget extends ConsumerWidget {
+          final String userId;
+          UserProfileWidget({required this.userId});
+
+          @override
+          Widget build(BuildContext context, WidgetRef ref) {
+            // Assuming an asyncUserProvider(userId) that fetches user data
+            final userAsync = ref.watch(asyncUserProvider(userId));
+            return userAsync.when(
+              data: (user) => Text('User: ${user}'),
+              loading: () => CircularProgressIndicator(),
+              error: (err, stack) => Text('Error: $err'),
+            );
+          }
+        }
+        ```
+    *   **`skipLoadingOnRefresh/Reload`**: Consider using `AsyncValue.copyWithPrevious` or `skipLoadingOnRefresh`/`skipLoadingOnReload` properties of `when` for a better UX during data re-fetches.
+        ```dart
+        // Inside when:
+        // loading: () => userAsync.hasValue ? Text('Updating: ${"userAsync.value!.name"}') : CircularProgressIndicator(),
+        // or
+        // return userAsync.when(
+        //   skipLoadingOnRefresh: true, // Keeps showing old data while refreshing
+        //   data: (user) => Text('User: ${user}'),
+        //   loading: () => CircularProgressIndicator(),
+        //   error: (err, stack) => Text('Error: $err'),
+        // );
+        ```'''
+      },
+      {
+        'text': '''5.7 Testing:
+    *   **Unit Test Providers**: Test providers in isolation using `ProviderContainer`.
+        ```dart
+        test('CounterNotifier increments state', () {
+          final container = ProviderContainer();
+          addTearDown(container.dispose); // Ensure disposal
+
+          final notifier = container.read(counterProvider.notifier);
+          expect(container.read(counterProvider), 0);
+          notifier.increment();
+          expect(container.read(counterProvider), 1);
+        });
+        ```
+    *   **Override Dependencies**: Use `ProviderContainer(overrides: [...])` or `ProviderScope(overrides: [...])` for testing.
+        ```dart
+        // In a test
+        final mockAuthService = MockAuthService(); // Using a mock class
+        when(mockAuthService.signIn(any, any)).thenAnswer((_) async => 'mock_user_id');
+
+        final container = ProviderContainer(
+          overrides: [
+            authServiceProvider.overrideWithValue(mockAuthService),
+          ],
+        );
+        // Now, any provider reading authServiceProvider will get the mock.
+        ```'''
+      },
+      {
+        'text': '''5.8 Naming Conventions:
+    *   Generated providers are typically `lowerCamelCaseProvider` (e.g., `authServiceProvider`, `counterProvider`).
+    *   Notifier classes are `UpperCamelCase` (e.g., `Counter`, `AuthNotifier`).'''
+      },
+      {
+        'text': '''5.9 Best Practices & Common Pitfalls:
+    *   **Avoid `ref` in constructors**: Do not pass `ref` to regular class constructors. Dependencies should be passed explicitly or obtained via `ref` within provider build methods.
+    *   **Side Effects**: Perform side effects (API calls, database writes) within Notifier methods or by using `ref.listen` or `ref.read` in callbacks, not directly in provider `build` methods if the provider is meant to return synchronous state.
+    *   **Read vs Watch**: Be mindful of when to use `ref.read` (for one-time actions) versus `ref.watch` (to rebuild on changes). Incorrect usage can lead to missed UI updates or unnecessary rebuilds.
+    *   **Keep UI Dumb**: Widgets should primarily be responsible for displaying state and dispatching user events to notifiers/providers.
+    *   **Error Handling**: Properly handle errors in asynchronous providers and display them gracefully in the UI using `AsyncValue.when` or `try-catch` within Notifier methods.
+    *   **Dependencies in `@Riverpod`**: Use `@Riverpod(dependencies: [otherProvider])` to explicitly declare dependencies for generated providers. This helps Riverpod optimize and can be useful for tools or analysis.'''
+      },
+      {
+        'text': '''5.10 Code Generation:
+    *   Always run the build runner after creating or modifying providers annotated with `@riverpod`:
+        `flutter pub run build_runner watch --delete-conflicting-outputs` (for continuous watching)
+        or
+        `flutter pub run build_runner build --delete-conflicting-outputs` (for a one-time build).'''
+      }
     ],
   },
   {
@@ -268,7 +492,8 @@ dynamic rules = [
   },
   {
     'section_title': '''10. Testing''',
-    'description': '''''', // No separate description line in the .txt for this section
+    'description':
+        '''''', // Corrected: No separate description line before the first rule.
     'rules': [
       {
         'text': '''10.2 Widget Tests:
