@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import '../constants/rules.dart' as app_rules; // Import your rules data
+import '../constants/rules.dart' as app_rules;
+import '../constants/ui_constants.dart' as ui_constants;
 
 class RulesPage extends StatelessWidget {
   const RulesPage({super.key});
 
-  // Helper to build rule items, now parsing for **bold** text
+  /// Builds a single rule item, parsing for **bold** text.
+  /// Applies different styling for sub-items.
   Widget _buildRuleItem(BuildContext context, String text,
       {bool isSubItem = false}) {
     final List<InlineSpan> spans = [];
-    // Use character class for literal asterisk to potentially avoid linter warning
     final RegExp exp =
-        RegExp(r'[*]{2}(.*?)[*]{2}'); // Regex to find **bolded text**
+        RegExp(r'[*]{2}(.*?)[*]{2}'); // Finds **bolded text**
     int currentIndex = 0;
 
-    final TextStyle defaultStyleForSpans = TextStyle(
-      fontSize: isSubItem ? 14 : 15,
-      // Use the theme's default body text color
-      color: Theme.of(context).textTheme.bodyMedium?.color,
-    );
+    final textTheme = Theme.of(context).textTheme;
+    final TextStyle defaultStyleForSpans = (isSubItem
+            ? textTheme.bodySmall
+            : textTheme.bodyMedium) ??
+        const TextStyle(); // Fallback to default TextStyle
 
     for (final match in exp.allMatches(text)) {
       // Add text before the bold part (if any)
@@ -25,8 +26,6 @@ class RulesPage extends StatelessWidget {
         spans.add(TextSpan(text: text.substring(currentIndex, match.start)));
       }
       // Add the bold part (content within **).
-      // This TextSpan will inherit fontSize and color from defaultStyleForSpans,
-      // and specifically override fontWeight.
       spans.add(TextSpan(
         text: match.group(1), // group(1) is the content *inside* **...**
         style: const TextStyle(fontWeight: FontWeight.bold),
@@ -41,42 +40,185 @@ class RulesPage extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-        left: isSubItem ? 16.0 : 8.0,
-        top: 4.0,
-        bottom: 4.0,
+        left: isSubItem ? ui_constants.kSpaceMedium : ui_constants.kSpaceSmall, // Was _kExtraLargePadding & _kMediumPadding
+        top: ui_constants.kSpaceXSmall, // Was _kSmallPadding
+        bottom: ui_constants.kSpaceXSmall, // Was _kSmallPadding
       ),
       child: RichText(
-        textAlign: TextAlign.left, // Ensure text aligns left
         text: TextSpan(
-          style: defaultStyleForSpans, // Base style for all children
+          style: defaultStyleForSpans,
           children: spans,
         ),
       ),
     );
   }
 
-  // Helper to build sub-points from a string with bullet points
-  List<Widget> _buildSubPoints(BuildContext context, String textBlock) {
-    return textBlock
-        .split('\n')
-        .where((line) => line.trim().isNotEmpty)
-        .map((line) {
-      final trimmedLine = line.trim();
-      if (trimmedLine.startsWith('* ') || trimmedLine.startsWith('- ')) {
-        return _buildRuleItem(context, trimmedLine.substring(2),
-            isSubItem: true);
+  /// Builds a styled code block with a monospace font and background.
+  Widget _buildCodeBlockItem(BuildContext context, String codeText) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: ui_constants.kSpaceSmall), // Was _kMediumPadding
+      padding: const EdgeInsets.all(ui_constants.kSpaceSMedium), // Was _kLargePadding
+      decoration: BoxDecoration(
+        color: isDarkMode ? Colors.grey[850] : Colors.grey[200],
+        borderRadius: BorderRadius.circular(4.0),
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Text(
+          codeText.trim(),
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14.0, // Match bodyMedium size
+            color: isDarkMode ? Colors.grey[300] : Colors.black87,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Builds a list of widgets for a single rule's text,
+  /// handling regular lines, sub-points, bolding, and code blocks.
+  List<Widget> _buildWidgetsForRuleText(
+      BuildContext context, String ruleFullText) {
+    final List<Widget> widgets = [];
+    final parts = ruleFullText.split('```'); // Split by triple backticks
+
+    for (int i = 0; i < parts.length; i++) {
+      String segment = parts[i];
+      if (i % 2 == 1) {
+        // Odd segments are code blocks
+        if (segment.trim().isNotEmpty) {
+          String codeContent = segment;
+          // Language hint (e.g., ```dart) is part of the segment.
+          // _buildCodeBlockItem will display it as is.
+          widgets.add(_buildCodeBlockItem(context, codeContent));
+        }
+      } else {
+        // Even segments are regular text (can be multi-line)
+        if (segment.trim().isNotEmpty) {
+          segment.split('\n').where((line) => line.trim().isNotEmpty).forEach((line) {
+            final trimmedLine = line.trim();
+            if (trimmedLine.startsWith('* ') || trimmedLine.startsWith('- ')) {
+              widgets.add(_buildRuleItem(context, trimmedLine.substring(2), isSubItem: true));
+            } else {
+              widgets.add(_buildRuleItem(context, trimmedLine));
+            }
+          });
+        }
       }
-      return _buildRuleItem(context, trimmedLine);
+    }
+    return widgets;
+  }
+
+  /// Builds a Card widget for a section of app development rules.
+  Widget _buildAppRuleSectionCard(
+      BuildContext context, Map<String, dynamic> section) {
+    final String title = section['section_title'] as String;
+    final String description = section['description'] as String? ?? '';
+    final List<Map<String, dynamic>> rulesList =
+        List<Map<String, dynamic>>.from(section['rules'] as List);
+
+    final textTheme = Theme.of(context).textTheme;
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: ui_constants.kSpaceMedium), // Was _kExtraLargePadding
+      elevation: 2.0,
+      child: Padding(
+        padding: const EdgeInsets.all(ui_constants.kSpaceSMedium), // Was _kLargePadding
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: textTheme.titleLarge?.copyWith( // Using TextTheme
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ) ??
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 20), // Fallback
+            ),
+            if (description.isNotEmpty) ...[
+              ui_constants.kXSmallVGap, // Was SizedBox(height: _kSmallPadding)
+              Text(
+                description,
+                style: textTheme.bodyLarge?.copyWith(
+                      fontStyle: FontStyle.italic,
+                      color: textTheme.bodyMedium?.color
+                          ?.withAlpha((0.75 * 255).round()), // Fixed: Used withAlpha
+                    ) ??
+                    const TextStyle(fontStyle: FontStyle.italic), // Fallback
+              ),
+            ],
+            ui_constants.kSmallVGap, // Was SizedBox(height: _kMediumPadding)
+            ...rulesList.expand((ruleMap) {
+              final String ruleText = ruleMap['text'] as String;
+              return _buildWidgetsForRuleText(context, ruleText);
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Builds a Card widget for the README generation rules section.
+  Widget _buildReadmeRulesCard(
+      BuildContext context, Map<String, dynamic> readmeRulesData) {
+    final String readmeTitle =
+        readmeRulesData['section_title'] as String? ?? 'README Rules';
+    final String readmeDescription =
+        readmeRulesData['description'] as String? ?? '';
+    final List<dynamic>? readmeRulesListRaw =
+        readmeRulesData['rules'] as List?;
+    final List<Map<String, dynamic>> readmeRulesList =
+        readmeRulesListRaw != null
+            ? List<Map<String, dynamic>>.from(readmeRulesListRaw)
+            : [];
+
+    final List<Widget> readmeRuleWidgets = readmeRulesList.expand((ruleMap) {
+      final String ruleText = ruleMap['text'] as String;
+      return _buildWidgetsForRuleText(context, ruleText);
     }).toList();
+
+    final textTheme = Theme.of(context).textTheme;
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: ui_constants.kSpaceMedium), // Was _kExtraLargePadding
+      elevation: 2.0,
+      child: Padding(
+        padding: const EdgeInsets.all(ui_constants.kSpaceSMedium), // Was _kLargePadding
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              readmeTitle,
+              style: textTheme.headlineSmall, // Consistent with overall page title
+            ),
+            if (readmeDescription.isNotEmpty) ...[
+              ui_constants.kXSmallVGap, // Was SizedBox(height: _kSmallPadding)
+              Text(
+                readmeDescription,
+                style: textTheme.bodyLarge?.copyWith(
+                      fontStyle: FontStyle.italic,
+                      color: textTheme.bodyMedium?.color
+                          ?.withAlpha((0.75 * 255).round()), // Fixed: Used withAlpha
+                    ) ??
+                    const TextStyle(fontStyle: FontStyle.italic), // Fallback
+              ),
+            ],
+            ui_constants.kSmallVGap, // Was SizedBox(height: _kMediumPadding)
+            ...readmeRuleWidgets,
+          ],
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // Cast the dynamic rules to a more specific type for easier handling
     final List<Map<String, dynamic>> allRulesData =
         List<Map<String, dynamic>>.from(app_rules.rules);
 
-    // Separate README rules from other app rules
     final List<Map<String, dynamic>> appDevelopmentRulesData = allRulesData
         .where((ruleSection) =>
             ruleSection['section_title'] != 'README Generation Rules')
@@ -85,111 +227,27 @@ class RulesPage extends StatelessWidget {
     final Map<String, dynamic> readmeRulesData = allRulesData.firstWhere(
       (ruleSection) =>
           ruleSection['section_title'] == 'README Generation Rules',
-      orElse: () => <String, dynamic>{}, // Return an empty map if not found
+      orElse: () => <String, dynamic>{},
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'App & README Rules', // AppBar title will use AppBarTheme
-        ),
+        title: const Text('App & README Rules'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16.0),
+        padding: ui_constants.kMediumPadding, // Was EdgeInsets.all(_kExtraLargePadding)
         children: <Widget>[
           Text(
             'Flutter App Development Guidelines',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          const SizedBox(height: 16.0),
-          // Generate Cards for app development rules
+          ui_constants.kMediumVGap, // Was SizedBox(height: _kExtraLargePadding)
           ...appDevelopmentRulesData.expand((section) {
-            final String title = section['section_title'] as String;
-            final String description =
-                section['description'] as String? ?? ''; // Get description
-            final List<Map<String, dynamic>> rulesList =
-                List<Map<String, dynamic>>.from(section['rules'] as List);
-            final String content =
-                rulesList.map((rule) => rule['text'] as String).join('\n');
-
-            // Wrap each rule set in a Card
-            return [
-              Card(
-                margin: const EdgeInsets.only(bottom: 16.0),
-                elevation: 2.0, // Adjust elevation as needed
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18, // A bit larger for section titles
-                        ),
-                      ),
-                      if (description.isNotEmpty) ...[
-                        const SizedBox(height: 4.0),
-                        Text(
-                          description,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ],
-                      const SizedBox(height: 8.0), // Space before rule points
-                      ..._buildSubPoints(context, content),
-                    ],
-                  ),
-                ),
-              ),
-            ];
-          }).toList(),
-
-          // Handle README rules section
+            return [_buildAppRuleSectionCard(context, section)];
+          }),
           if (readmeRulesData.isNotEmpty) ...[
-            Builder(builder: (context) {
-              // Use Builder to access context for theme
-              final String readmeTitle =
-                  readmeRulesData['section_title'] as String? ?? 'README Rules';
-              final String readmeDescription =
-                  readmeRulesData['description'] as String? ?? '';
-              final rulesList = readmeRulesData['rules'] as List?;
-              String readmeContent = '';
-              if (rulesList != null && rulesList.isNotEmpty) {
-                readmeContent = List<Map<String, dynamic>>.from(rulesList)
-                    .map((rule) => rule['text'] as String)
-                    .join('\n');
-              }
-
-              return Card(
-                margin: const EdgeInsets.only(bottom: 16.0),
-                elevation: 2.0,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        readmeTitle,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      if (readmeDescription.isNotEmpty) ...[
-                        const SizedBox(height: 4.0),
-                        Text(
-                          readmeDescription,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ],
-                      const SizedBox(height: 8.0),
-                      if (readmeContent.isNotEmpty)
-                        ..._buildSubPoints(context, readmeContent),
-                    ],
-                  ),
-                ),
-              );
-            })
+            _buildReadmeRulesCard(context, readmeRulesData),
           ],
         ],
       ),

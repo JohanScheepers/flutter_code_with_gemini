@@ -1,5 +1,7 @@
 1. Project Setup & Structure
 
+Use Flutter 3.29.0 
+
 1.1 Standard Initialization: Always start new projects using the official `flutter create <project_name>`
 
 1.2 Directory Organization:
@@ -79,7 +81,7 @@ A consistent visual appearance enhances the user experience.
 
 4.7 Accessibility (Reiteration): Beyond color contrast, ensure that typography choices (font family, size, weight) are legible and that theme changes do not negatively impact other accessibility features.
 
-4.8 Do Not Use `Color.withOpacity()`: `withOpacity` is deprecated and shouldn't be used. Use `.withValues()` to avoid precision loss.
+4.8 `Color.withOpacity()` is Deprecated: As of Flutter 3.19, `Color.withOpacity()` is deprecated due to potential precision issues and the availability of clearer alternatives. Prefer using `existingColor.withAlpha((newOpacity * 255).round())` to modify an existing color's opacity, or `Color.alphaBlend(foregroundColor, backgroundColor)` for blending. If creating a new color with specific RGBA values (conceptually similar to setting all ".withValues()"), use `Color.fromARGB(alpha, red, green, blue)` or `Color.fromRGBO(red, green, blue, newOpacity)` for precise control.
 
 5. State Management
 Managing state effectively is key to a robust Flutter app, I will always use Riverpod.

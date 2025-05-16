@@ -1,11 +1,10 @@
-/// Contains the rules extracted from gemini_code_assist_rules.txt
-/// This data can be used by tools or other parts of an application
+/// Contains the rules extracted from gemini_code_assist_rules.txt.
+/// This data can be used by tools or other parts of an application.
 /// to understand and apply the defined Flutter development guidelines.
 dynamic rules = [
   {
     'section_title': '''1. Project Setup & Structure''',
-    'description':
-        '''The foundation of any good app is a clean and understandable project structure.''',
+    'description': '''Use Flutter 3.29.0''',
     'rules': [
       {
         'text':
@@ -13,7 +12,7 @@ dynamic rules = [
       },
       {
         'text': '''1.2 Directory Organization:
-    *   I'll primarily use the `lib` directory for Dart code.
+    *  Always `lib` directory for Dart code.
     *   Within `lib`, directory organization will be done by layers (e.g., `lib/src/widgets/`, `lib/src/models/`, `lib/src/services/`).
     *   Assets will be placed in a top-level `assets` directory and declared in `pubspec.yaml`. Specific asset types will be organized into subdirectories: `assets/images/` for images, `assets/fonts/` for fonts, and other types in their respective named subdirectories (e.g., `assets/data/` for data files, `assets/rive/` for Rive animations).
     *   Tests will reside in the `test` directory.'''
@@ -31,12 +30,8 @@ dynamic rules = [
   {
     'section_title': '''2. Coding Standards & Style''',
     'description':
-        '''Consistent code is readable code!''', // This description is from the original rules.dart, not explicitly in gemini_code_assist_rules.txt as a separate line.
+        '''Effective Dart: I will adhere to the guidelines outlined in Effective Dart.''',
     'rules': [
-      {
-        'text':
-            '''Effective Dart: I will adhere to the guidelines outlined in Effective Dart.'''
-      },
       {
         'text':
             '''2.1 Linting: I'll use `flutter analyze` and strive to eliminate all warnings and errors. I'll assume a standard set of linting rules (e.g., from the `lints` or `flutter_lints` package).'''
@@ -60,8 +55,7 @@ dynamic rules = [
   },
   {
     'section_title': '''3. Widget Design & Composition''',
-    'description':
-        '''Flutter's UI is all about widgets, so I'll build them thoughtfully.''',
+    'description': '''''', // No separate description line in the .txt for this section
     'rules': [
       {
         'text':
@@ -78,7 +72,7 @@ dynamic rules = [
       },
       {
         'text':
-            '''3.4 Separation of Concerns: I'll strive to keep UI (widget) code separate from business logic.'''
+            '''3.4 Separation of Concerns**: I'll strive to keep UI (widget) code separate from business logic.'''
       },
       {
         'text':
@@ -117,7 +111,7 @@ dynamic rules = [
     *   **Proactive Inquiry**: If a specific color palette or seed color is not provided by you, I will ask clarifying questions to help define it. This includes inquiring about primary/secondary brand colors, desired mood (e.g., vibrant, muted, professional), and any specific accessibility contrast requirements you might have.
     *   **ColorScheme Usage**: Utilize `ColorScheme.fromSeed` for generating harmonious light and dark color schemes from a single seed color. For more granular control, define `ColorScheme` properties explicitly.
     *   **Semantic Colors**: Consistently use semantic colors provided by `ColorScheme` (e.g., `primary`, `secondary`, `surface`, `background`, `error`, `onPrimary`, `onSecondary`, etc.) for UI elements and states.
-    *   **Contrast & Harmony**: Employ color theory principles and tools (e.g., Adobe Color, Coolors) to ensure the palette is visually harmonious. Crucially, verify that color combinations provide sufficient contrast for readability and meet accessibility standards (e.g., WCAG AA or AAA levels).
+    *   **Contrast & Harmony**: Employ color theory principles and tools (e.g., Adobe Color, Colors) to ensure the palette is visually harmonious. Crucially, verify that color combinations provide sufficient contrast for readability and meet accessibility standards (e.g., WCAG AA or AAA levels).
     *   **Limited Palette**: Prefer a limited and well-defined color palette (e.g., 3-5 primary/accent colors plus neutrals) to maintain visual consistency and avoid overwhelming the user.'''
       },
       {
@@ -141,7 +135,7 @@ dynamic rules = [
       },
       {
         'text':
-            '''4.8 Do Not Use `Color.withOpacity()`: `withOpacity` is deprecated and shouldn't be used. Use `.withValues()` to avoid precision loss.'''
+            '''4.8 `Color.withOpacity()` is Deprecated: As of Flutter 3.19, `Color.withOpacity()` is deprecated due to potential precision issues and the availability of clearer alternatives. Prefer using `existingColor.withAlpha((newOpacity * 255).round())` to modify an existing color's opacity, or `Color.alphaBlend(foregroundColor, backgroundColor)` for blending. If creating a new color with specific RGBA values (conceptually similar to setting all ".withValues()"), use `Color.fromARGB(alpha, red, green, blue)` or `Color.fromRGBO(red, green, blue, newOpacity)` for precise control.'''
       },
     ],
   },
@@ -230,8 +224,7 @@ dynamic rules = [
   },
   {
     'section_title': '''8. Navigation''',
-    'description':
-        '''Getting around the app should be intuitive.''', // This description is from the original rules.dart
+    'description': '''Getting around the app should be intuitive.''',
     'rules': [
       {
         'text':
@@ -275,15 +268,8 @@ dynamic rules = [
   },
   {
     'section_title': '''10. Testing''',
-    'description':
-        '''To ensure quality and maintainability, testing is essential.''',
+    'description': '''''', // No separate description line in the .txt for this section
     'rules': [
-      {
-        'text': '''10.1 Unit Tests:
-    *   **I will always aim to generate unit tests for new functions and methods, especially those containing business logic.**
-    *   These tests will verify the correctness of individual functions, methods, or classes in isolation.
-    *   I'll use the `test` package.'''
-      },
       {
         'text': '''10.2 Widget Tests:
     *   I'll write widget tests to verify that widgets render correctly and respond to user interactions as expected.
@@ -305,8 +291,7 @@ dynamic rules = [
   },
   {
     'section_title': '''11. Performance''',
-    'description':
-        '''A smooth and responsive app is a joy to use.''', // This description is from the original rules.dart
+    'description': '''A smooth and responsive app is a joy to use.''',
     'rules': [
       {
         'text':
