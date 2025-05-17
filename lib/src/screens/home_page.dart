@@ -66,6 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           child: const Text('View GitHub Link Page'),
         ),
+        kMediumVGap,
+        Text(
+          'Disclaimer: This app was created with the assistance of Gemini.',
+          style: Theme.of(context).textTheme.bodySmall,
+          textAlign: TextAlign.center,
+        ),
       ],
     );
   }

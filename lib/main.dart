@@ -3,7 +3,7 @@ import 'package:flutter_code_with_gemini/src/routing/app_router.dart'; // Import
 
 // Global ValueNotifier to hold the current theme mode
 final ValueNotifier<ThemeMode> themeNotifier =
-    ValueNotifier(ThemeMode.system);
+    ValueNotifier(ThemeMode.dark);
 
 void main() {
   runApp(const MyApp());
@@ -57,6 +57,8 @@ class MyApp extends StatelessWidget {
           theme: lightTheme, // Set the light theme
           darkTheme: darkTheme, // Set the dark theme
           themeMode: currentMode, // Use the current mode from the notifier
+          themeAnimationDuration: const Duration(milliseconds: 1500), // Duration of the theme change animation
+          themeAnimationCurve: Curves.easeInOut, // Curve for the theme change animation
           routerConfig: AppRouter.router,
         );
       },
