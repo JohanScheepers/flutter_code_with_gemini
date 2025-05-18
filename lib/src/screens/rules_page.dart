@@ -10,15 +10,13 @@ class RulesPage extends StatelessWidget {
   Widget _buildRuleItem(BuildContext context, String text,
       {bool isSubItem = false}) {
     final List<InlineSpan> spans = [];
-    final RegExp exp =
-        RegExp(r'[*]{2}(.*?)[*]{2}'); // Finds **bolded text**
+    final RegExp exp = RegExp(r'[*]{2}(.*?)[*]{2}'); // Finds **bolded text**
     int currentIndex = 0;
 
     final textTheme = Theme.of(context).textTheme;
-    final TextStyle defaultStyleForSpans = (isSubItem
-            ? textTheme.bodySmall
-            : textTheme.bodyMedium) ??
-        const TextStyle(); // Fallback to default TextStyle
+    final TextStyle defaultStyleForSpans =
+        (isSubItem ? textTheme.bodySmall : textTheme.bodyMedium) ??
+            const TextStyle(); // Fallback to default TextStyle
 
     for (final match in exp.allMatches(text)) {
       // Add text before the bold part (if any)
@@ -40,9 +38,12 @@ class RulesPage extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-        left: isSubItem ? ui_constants.kSpaceMedium : ui_constants.kSpaceSmall, // Was _kExtraLargePadding & _kMediumPadding
-        top: ui_constants.kSpaceXSmall, // Was _kSmallPadding
-        bottom: ui_constants.kSpaceXSmall, // Was _kSmallPadding
+        left: isSubItem
+            ? ui_constants.kSizeMedium
+            : ui_constants
+                .kSizeSmall, // Was _kExtraLargePadding & _kMediumPadding
+        top: ui_constants.kSizeXSmall, // Was _kSmallPadding
+        bottom: ui_constants.kSizeXSmall, // Was _kSmallPadding
       ),
       child: RichText(
         text: TextSpan(
@@ -58,8 +59,10 @@ class RulesPage extends StatelessWidget {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: ui_constants.kSpaceSmall), // Was _kMediumPadding
-      padding: const EdgeInsets.all(ui_constants.kSpaceSMedium), // Was _kLargePadding
+      margin: const EdgeInsets.symmetric(
+          vertical: ui_constants.kSizeSmall), // Was _kMediumPadding
+      padding:
+          const EdgeInsets.all(ui_constants.kSizeSMedium), // Was _kLargePadding
       decoration: BoxDecoration(
         color: isDarkMode ? Colors.grey[850] : Colors.grey[200],
         borderRadius: BorderRadius.circular(4.0),
@@ -70,7 +73,8 @@ class RulesPage extends StatelessWidget {
           codeText.trim(),
           style: TextStyle(
             fontFamily: 'monospace',
-            fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14.0, // Match bodyMedium size
+            fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize ??
+                14.0, // Match bodyMedium size
             color: isDarkMode ? Colors.grey[300] : Colors.black87,
           ),
         ),
@@ -98,10 +102,14 @@ class RulesPage extends StatelessWidget {
       } else {
         // Even segments are regular text (can be multi-line)
         if (segment.trim().isNotEmpty) {
-          segment.split('\n').where((line) => line.trim().isNotEmpty).forEach((line) {
+          segment
+              .split('\n')
+              .where((line) => line.trim().isNotEmpty)
+              .forEach((line) {
             final trimmedLine = line.trim();
             if (trimmedLine.startsWith('* ') || trimmedLine.startsWith('- ')) {
-              widgets.add(_buildRuleItem(context, trimmedLine.substring(2), isSubItem: true));
+              widgets.add(_buildRuleItem(context, trimmedLine.substring(2),
+                  isSubItem: true));
             } else {
               widgets.add(_buildRuleItem(context, trimmedLine));
             }
@@ -123,20 +131,24 @@ class RulesPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Card(
-      margin: const EdgeInsets.only(bottom: ui_constants.kSpaceMedium), // Was _kExtraLargePadding
+      margin: const EdgeInsets.only(
+          bottom: ui_constants.kSizeMedium), // Was _kExtraLargePadding
       elevation: 2.0,
       child: Padding(
-        padding: const EdgeInsets.all(ui_constants.kSpaceSMedium), // Was _kLargePadding
+        padding: const EdgeInsets.all(
+            ui_constants.kSizeSMedium), // Was _kLargePadding
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: textTheme.titleLarge?.copyWith( // Using TextTheme
+              style: textTheme.titleLarge?.copyWith(
+                    // Using TextTheme
                     color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ) ??
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 20), // Fallback
+                  const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20), // Fallback
             ),
             if (description.isNotEmpty) ...[
               ui_constants.kXSmallVGap, // Was SizedBox(height: _kSmallPadding)
@@ -144,8 +156,8 @@ class RulesPage extends StatelessWidget {
                 description,
                 style: textTheme.bodyLarge?.copyWith(
                       fontStyle: FontStyle.italic,
-                      color: textTheme.bodyMedium?.color
-                          ?.withAlpha((0.75 * 255).round()), // Fixed: Used withAlpha
+                      color: textTheme.bodyMedium?.color?.withAlpha(
+                          (0.75 * 255).round()), // Fixed: Used withAlpha
                     ) ??
                     const TextStyle(fontStyle: FontStyle.italic), // Fallback
               ),
@@ -168,8 +180,7 @@ class RulesPage extends StatelessWidget {
         readmeRulesData['section_title'] as String? ?? 'README Rules';
     final String readmeDescription =
         readmeRulesData['description'] as String? ?? '';
-    final List<dynamic>? readmeRulesListRaw =
-        readmeRulesData['rules'] as List?;
+    final List<dynamic>? readmeRulesListRaw = readmeRulesData['rules'] as List?;
     final List<Map<String, dynamic>> readmeRulesList =
         readmeRulesListRaw != null
             ? List<Map<String, dynamic>>.from(readmeRulesListRaw)
@@ -183,16 +194,19 @@ class RulesPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Card(
-      margin: const EdgeInsets.only(bottom: ui_constants.kSpaceMedium), // Was _kExtraLargePadding
+      margin: const EdgeInsets.only(
+          bottom: ui_constants.kSizeMedium), // Was _kExtraLargePadding
       elevation: 2.0,
       child: Padding(
-        padding: const EdgeInsets.all(ui_constants.kSpaceSMedium), // Was _kLargePadding
+        padding: const EdgeInsets.all(
+            ui_constants.kSizeSMedium), // Was _kLargePadding
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               readmeTitle,
-              style: textTheme.headlineSmall, // Consistent with overall page title
+              style:
+                  textTheme.headlineSmall, // Consistent with overall page title
             ),
             if (readmeDescription.isNotEmpty) ...[
               ui_constants.kXSmallVGap, // Was SizedBox(height: _kSmallPadding)
@@ -200,8 +214,8 @@ class RulesPage extends StatelessWidget {
                 readmeDescription,
                 style: textTheme.bodyLarge?.copyWith(
                       fontStyle: FontStyle.italic,
-                      color: textTheme.bodyMedium?.color
-                          ?.withAlpha((0.75 * 255).round()), // Fixed: Used withAlpha
+                      color: textTheme.bodyMedium?.color?.withAlpha(
+                          (0.75 * 255).round()), // Fixed: Used withAlpha
                     ) ??
                     const TextStyle(fontStyle: FontStyle.italic), // Fallback
               ),
@@ -236,7 +250,8 @@ class RulesPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: ListView(
-        padding: ui_constants.kMediumPadding, // Was EdgeInsets.all(_kExtraLargePadding)
+        padding: ui_constants
+            .kMediumPadding, // Was EdgeInsets.all(_kExtraLargePadding)
         children: <Widget>[
           Text(
             'Flutter App Development Guidelines',

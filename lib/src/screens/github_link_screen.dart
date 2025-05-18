@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_code_with_gemini/src/constants/ui_constants.dart'; // Corrected import path
 import 'package:flutter_code_with_gemini/src/services/github_service.dart'; // Import the service
 import 'package:flutter_code_with_gemini/src/constants/app_constants.dart'; // Import AppConstants
+import 'package:flutter_code_with_gemini/src/constants/text_styles.dart'; // Import Text Styles
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart'; // Import for date formatting
 
@@ -103,7 +104,8 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
           Icon(icon,
               color: Theme.of(context).colorScheme.primary,
               size: kMediumIconSize +
-                  kXSmallLabelSize), // Was kIconSizeSmall + 2 (20.0), now smallIconSize (16) + xlabelSmallSize (4) = 20.0
+                  AppLabelSize
+                      .kXSmallLabelSize), // Was kIconSizeSmall + 2 (20.0), now smallIconSize (16) + xlabelSmallSize (4) = 20.0
           kSmallHGap, // Was kHorizontalSpacerSmall (8.0), now xxsmallHGap (8.0)
           Flexible(
             // Wrap label text
@@ -111,7 +113,7 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
                 .tight, // Ensure label takes available space before Spacer
             child: Text(
               '$label:',
-              style: kMediumLabel.copyWith(
+              style: AppTextStyle.kMediumLabel.copyWith(
                   fontWeight:
                       FontWeight.w500), // Used labelMedium (fontSize 16)
               overflow: TextOverflow.ellipsis,
@@ -122,7 +124,8 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
             // Wrap value text
             child: Text(
               value?.toString() ?? 'N/A',
-              style: kMediumLabel, // Used labelMedium (fontSize 16)
+              style:
+                  AppTextStyle.kMediumLabel, // Used labelMedium (fontSize 16)
               textAlign: TextAlign.end,
               overflow: TextOverflow.ellipsis,
             ),
@@ -156,8 +159,8 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
               kSmallPadding, // Was kCardPadding (8.0), now smallPadding (8.0)
           child: Text(
             'Error fetching stats: $_errorMessage',
-            style: kMediumLabel.copyWith(
-                color: Colors.red), // Used labelMedium (fontSize 16)
+            style: AppTextStyle.kMediumLabel
+                .copyWith(color: Colors.red), // Used labelMedium (fontSize 16)
             textAlign: TextAlign.center,
           ),
         ),
@@ -267,8 +270,8 @@ class _GithubLinkScreenState extends State<GithubLinkScreen> {
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
                   vertical: kMediumRadius,
-                  horizontal:
-                      kLargeLabelSize), // vertical 12 (xsmallRadius), horizontal 24 (labelLargeSize)
+                  horizontal: AppLabelSize
+                      .kLargeLabelSize), // vertical 12 (xsmallRadius), horizontal 24 (labelLargeSize)
             ),
           ),
         ],

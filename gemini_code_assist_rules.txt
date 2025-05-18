@@ -57,7 +57,7 @@ Effective Dart: I will adhere to the guidelines outlined in Effective Dart.
 4. Theming
 A consistent visual appearance enhances the user experience.
 
-4.1 Centralized Theme: Define app-wide themes (`ThemeData`) centrally in `MaterialApp`, including `ColorScheme` and `TextTheme`.
+4.1 Centralized Theme: Define app-wide themes (`ThemeData` in .../src/constants/themes.dart) centrally in `MaterialApp`, including `ColorScheme`(.../src/constants/colors.dart), `Text Styles` and 'Label Sizes'(....../src/constants/text_styles.dart)
 
 4.2 Contextual Access: Always access theme properties via `Theme.of(context)` (e.g., `Theme.of(context).colorScheme.primary`) instead of hardcoding values.
 
@@ -84,7 +84,8 @@ A consistent visual appearance enhances the user experience.
 4.8 `Color.withOpacity()` is Deprecated: As of Flutter 3.19, `Color.withOpacity()` is deprecated due to potential precision issues and the availability of clearer alternatives. Prefer using `existingColor.withAlpha((newOpacity * 255).round())` to modify an existing color's opacity, or `Color.alphaBlend(foregroundColor, backgroundColor)` for blending. If creating a new color with specific RGBA values (conceptually similar to setting all ".withValues()"), use `Color.fromARGB(alpha, red, green, blue)` or `Color.fromRGBO(red, green, blue, newOpacity)` for precise control.
 
 5. State Management
-Riverpod will be the exclusive state management solution. These rules are based on Riverpod 2.0+ and its best practices, including the use of `riverpod_generator`.
+Riverpod will be the exclusive state management solution. These rules are based on Riverpod 2.6.1+ and its best practices, including the use of `riverpod_generator`.
+'import 'package:riverpod/riverpod.dart';'
 
 5.1 Core Principles & Setup:
     *   **Compile-Safety**: Prioritize code structures that allow Riverpod to catch errors at compile-time. This is greatly aided by `riverpod_generator`.

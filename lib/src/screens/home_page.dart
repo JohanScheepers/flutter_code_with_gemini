@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_code_with_gemini/src/constants/ui_constants.dart';
+import 'package:flutter_code_with_gemini/src/constants/ui_constants.dart'; // Import AppConstants
+import 'package:flutter_code_with_gemini/src/constants/text_styles.dart'; // Import Text Styles
 import 'package:flutter_code_with_gemini/main.dart';
 import 'package:go_router/go_router.dart';
 
@@ -40,7 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
       children: <Widget>[
         Text(
           'Flutter Code with Gemini',
-          style: kLargeHeadline.copyWith(fontWeight: FontWeight.bold),
+          style:
+              AppTextStyle.kLargeHeadline.copyWith(fontWeight: FontWeight.bold),
         ),
         kMediumVGap,
         Row(
@@ -120,9 +122,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(
                   isCurrentlyDark ? Icons.light_mode : Icons.dark_mode,
                 ),
-                tooltip: isCurrentlyDark
-                    ? 'Switch to Light Mode'
-                    : 'Switch to Dark Mode',
+                tooltip:
+                    isCurrentlyDark ? 'Switch Lights On' : 'Switch Lights Off',
                 onPressed: () {
                   if (isCurrentlyDark) {
                     themeNotifier.value = ThemeMode.light;
