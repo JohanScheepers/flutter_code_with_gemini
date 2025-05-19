@@ -4,6 +4,8 @@ import 'package:flutter_code_with_gemini/src/constants/ui_constants.dart'; // Im
 class AppTextStyle {
   // --- Text Styles ---
 // Predefined text styles for consistent typography.
+  static const TextStyle kSMediumLabel = TextStyle(
+      fontSize: kSizeSMedium, color: Color.fromARGB(255, 56, 56, 154));
   static const TextStyle kLargeHeadline = TextStyle(fontSize: kSizeLarge);
   static const TextStyle kMediumHeadline = TextStyle(fontSize: kSizeXLarge);
 

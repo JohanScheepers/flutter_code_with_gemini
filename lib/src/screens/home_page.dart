@@ -122,8 +122,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(
                   isCurrentlyDark ? Icons.light_mode : Icons.dark_mode,
                 ),
-                tooltip:
-                    isCurrentlyDark ? 'Switch Lights On' : 'Switch Lights Off',
+                tooltip: isCurrentlyDark
+                    ? 'Switch the Lights On'
+                    : 'Switch the Lights Off',
                 onPressed: () {
                   if (isCurrentlyDark) {
                     themeNotifier.value = ThemeMode.light;
