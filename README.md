@@ -1,3 +1,5 @@
+# Maintenance mode on this repo as the API for Gemini Code Assist have had some major changes.
+
 # flutter_code_with_gemini
 
 ![Flutter Code with Gemini App](assets/gif/flutter_code_with_gemini.gif)
