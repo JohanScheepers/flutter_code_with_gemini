@@ -24,7 +24,7 @@ This document outlines the rules and best practices I, as a Gemini-powered AI, w
 
 ## 1. Project Setup & Structure
 
-Use Flutter 3.27.2 and Dart 3.6.1
+Use Flutter 3.35 and Dart 3.9
 
 1.1 Standard Initialization: Always start new projects using the official `flutter create <project_name>`
 

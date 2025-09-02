@@ -10,7 +10,7 @@ var user = "user.name";
 dynamic rules = [
   {
     'section_title': '''1. Project Setup & Structure''',
-    'description': '''Use Flutter 3.27.2 and Dart 3.6.1''',
+    'description': '''Use Flutter 3.35 and Dart 3.9''',
     'rules': [
       {
         'text':

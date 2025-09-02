@@ -1,16 +1,15 @@
-# Maintenance mode on this repo as the API for Gemini Code Assist have had some major changes.
-
 # flutter_code_with_gemini
 
 ![Flutter Code with Gemini App](assets/gif/flutter_code_with_gemini.gif)
 
 This project leverages Google's Gemini Code Assist. Learn more about writing code with Gemini from the [official documentation](https://cloud.google.com/gemini/docs/codeassist/write-code-gemini).
 
-A Flutter project demonstrating how to add custom context or rules to Google's Gemini Code Assist to tailor its code generation and assistance within your development workflow.
+A Flutter project demonstrating how to add MCP server and rules to Google's Gemini Code Assist to tailor its code generation and assistance within your development workflow.
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
+- [MCP Server](#mcp-server)
 - [Rules](#rules)
 - [Gemini's Flutter App Development Guidelines](gemini_flutter_rules.md)
 
@@ -32,16 +31,35 @@ Once installed and activated, Gemini is ready to help!
 
 [Back to Top](#flutter_code_with_gemini)
 
+## MCP Server
+
+To add a MAP server to the project you need to follow these steps:
+
+1. Add folder **.gemini** in the main project structure.
+2. Add file **settings.json**.
+3. Add the MCP server settings to the settings.json
+```
+{
+  "mcpServers": {
+    "dart": {
+      "command": "dart",
+      "args": [
+        "mcp-server"
+      ]
+    }
+  }
+}
+```
+
 ## Rules
 
 You can guide Gemini's behavior by providing persistent instructions or "rules" that it will consider for every request you make. This helps ensure consistency and adherence to your project's specific standards or your personal preferences.
 
-Here's how to add custom rules (steps shown for VS Code, may vary slightly in other IDEs):
+Here's how to add custom rules
 
-1.  **Open the Command Palette:** Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS).
-2.  **Access Settings:** In the Command Palette, type `Preferences: Open Settings (UI)` and select it from the list.
-3.  **Find the Rules Setting:** In the Settings UI search bar, enter `Gemini Code Assist: Rules` (or similar, depending on the exact extension naming).
-4.  **Add Your Rule(s):** In the text input field provided for the rules, enter your instructions. You can add multiple rules, often one per line.
+1.  **Navigate to**:  `C:\Users\[uasername]\.gemini`
+2.  **Add:** In the directory `C:\Users\[uasername]\.gemini` add `GEMINI.md`
+3.  **Add Your Rule(s):** In the `GEMINI.md` add the rules, or enter your instructions. You can add multiple rules, often one per line.
 
     *Example Rule:*
     ```
@@ -50,10 +68,11 @@ Here's how to add custom rules (steps shown for VS Code, may vary slightly in ot
 
 After adding rules in the Rules settings, Gemini Code Assist considers the rule for every prompt or request you make.
 
-To remove the rule, delete the content from the Gemini Code Assist: Rules.
+To remove the rule, delete the content from the Gemini Code Assist: `GEMINI.md`
 
 
-For detailed coding and project guidelines, please refer to the [Gemini Code Assist Rules](./gemini_code_assist_rules.txt).
+For detailed coding and project guidelines, please refer to the [Gemini Code Assist Rules](./gemini_code_assist_rules.txt). These are the style and structure I prefer for my project. Please amend as needed for your project.
+
 
 
 
