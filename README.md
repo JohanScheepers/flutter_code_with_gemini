@@ -53,12 +53,23 @@ To add a MAP server to the project you need to follow these steps:
 
 ## Rules
 
-You can guide Gemini's behavior by providing persistent instructions or "rules" that it will consider for every request you make. This helps ensure consistency and adherence to your project's specific standards or your personal preferences.
+You can guide Gemini's behavior by providing persistent instructions or "rules" that it will consider for every request you make. This helps ensure consistency and adherence to your project's specific standards or your personal preferences. There are two places you can add rules:
 
-Here's how to add custom rules
+### 1. User Profile
 
 1.  **Navigate to**:  `C:\Users\[uasername]\.gemini`
 2.  **Add:** In the directory `C:\Users\[uasername]\.gemini` add `GEMINI.md`
+3.  **Add Your Rule(s):** In the `GEMINI.md` add the rules, or enter your instructions. You can add multiple rules, often one per line.
+
+    *Example Rule:*
+    ```
+    Always generate unit tests when creating a new function.
+    ```
+
+### 2. Project Folder
+
+1.  **Navigate to**:  `[projectFolder]`
+2.  **Add:** In the directory `[projectFolder]` add `GEMINI.md\`
 3.  **Add Your Rule(s):** In the `GEMINI.md` add the rules, or enter your instructions. You can add multiple rules, often one per line.
 
     *Example Rule:*
